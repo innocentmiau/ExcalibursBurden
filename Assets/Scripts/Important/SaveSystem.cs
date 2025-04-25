@@ -8,7 +8,15 @@ namespace Important
     {
         private string _saveFilePath;
 
-        public SaveSystem() => _saveFilePath = Application.persistentDataPath + "/savefile.json";
+        public SaveSystem(bool startFreshForDebug = true)
+        {
+            _saveFilePath = Application.persistentDataPath + "/savefile.json";
+            if (startFreshForDebug)
+            {
+                Debug.Log("<color=#e6e27a>[Start fresh for debug]</color> <color=#65fc4e>Enabled</color>:\n<color=#ff4f4f>Deleting current Save File</color>");
+                File.Delete(_saveFilePath);
+            }
+        }
 
         public void SaveGame(SaveData data)
         {
@@ -38,5 +46,6 @@ namespace Important
     public class SaveData
     {
         // VARIABLES TO LOAD FROM/SAVE FILE.
+        public int checkPoint;
     }
 }
