@@ -11,8 +11,9 @@ namespace Managers
     
         void Start()
         {
-        
+            DontDestroyOnLoad(gameObject);
             _data = new Data();
+            
         }
 
         void Update()
