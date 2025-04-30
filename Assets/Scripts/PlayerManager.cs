@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -24,6 +25,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded;
     private bool _jumpPressed;
 
+    [SerializeField] private Character characterData;
+    private SwordManager _swordManager;
+    
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -31,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         
         if (useAnimation) _animator = GetComponent<Animator>();
 
+        gameObject.tag = characterData.tag;
+        GetComponent<HealthSystem>().Setup(characterData);
+
+
+        _swordManager = transform.Find("Hand").Find("Sword").GetComponent<SwordManager>();
     }
 
     private void Update()
@@ -40,6 +49,18 @@ public class PlayerMovement : MonoBehaviour
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
         
         if (useAnimation && _animator != null) UpdateAnimations();
+
+        if (Input.GetMouseButtonDown(0) && !_swordManager.IsAttacking)
+        {
+            StartCoroutine(PlayerAttack());
+        }
+    }
+
+    private IEnumerator PlayerAttack()
+    {
+        _swordManager.SetAttacking(5f);
+        yield return new WaitForSeconds(1f);
+        _swordManager.StopAttacking();
     }
 
     private void FixedUpdate()
