@@ -46,6 +46,7 @@ namespace Important
     public class SaveData
     {
         // VARIABLES TO LOAD FROM/SAVE FILE.
+        public int map;
         public int checkPoint;
     }
 }
