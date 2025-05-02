@@ -7,7 +7,6 @@ public class HealthSystem : MonoBehaviour
     [SerializeField] private RectTransform healthBar;
     [SerializeField] private TMP_Text healthText;
     
-    private Healthy _healthy2;
     private Healthy _healthy;
 
     public void Setup(Character character)
