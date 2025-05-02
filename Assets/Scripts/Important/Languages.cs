@@ -2,6 +2,6 @@
 {
     public enum Languages
     {
-        ENGLISH, PORTUGUESE
+        ENGLISH, PORTUGUESE, PIRATE, MEOWLANG
     }
 }
