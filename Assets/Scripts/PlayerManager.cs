@@ -58,9 +58,12 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator PlayerAttack()
     {
+        _animator.SetBool("NormalAttack", true);
+        yield return new WaitForSeconds(0.35f);
         _swordManager.SetAttacking(5f);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         _swordManager.StopAttacking();
+        _animator.SetBool("NormalAttack", false);
     }
 
     private void FixedUpdate()

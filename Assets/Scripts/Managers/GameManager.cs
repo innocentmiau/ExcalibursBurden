@@ -9,6 +9,18 @@ namespace Managers
     public class GameManager : MonoBehaviour
     {
 
+        public bool IsGamePaused { get; private set; }
+
+        public void PauseGame()
+        {
+            IsGamePaused = true;
+        }
+
+        public void UnPauseGame()
+        {
+            IsGamePaused = false;
+        }
+        
         private Data _data;
     
         void Start()
