@@ -4,6 +4,8 @@
     {
         NOT_FOUND = 0, 
         TITLE = 1,
+        LOADING = 2,
+        PLAY_BUTTON = 3,
         MERLIN_TALK_0 = 1000,
         MERLIN_TALK_1 = 1001,
         MERLIN_TALK_2 = 1002,

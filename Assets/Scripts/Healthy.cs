@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class Healthy
+public sealed class Healthy
 {
     
     public float MaxHealth { get; }

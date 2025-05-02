@@ -6,6 +6,8 @@ namespace Important
     
     public class SaveSystem
     {
+        
+        
         private string _saveFilePath;
 
         public SaveSystem(bool startFreshForDebug = true)

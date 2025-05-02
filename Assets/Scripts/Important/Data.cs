@@ -2,7 +2,7 @@
 {
     public class Data
     {
-
+        
         public int Map { get; private set; }
         public int Checkpoint { get; private set; }
         private SaveSystem _saveSystem;
