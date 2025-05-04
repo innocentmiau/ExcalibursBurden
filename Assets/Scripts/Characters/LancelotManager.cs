@@ -26,7 +26,7 @@ namespace Characters
         
         private bool Cast()
         {
-            Instantiate(AttackPrefab, transform.position + new Vector3(32f, 0f, 0f), Quaternion.identity);
+            Instantiate(AttackPrefab, transform.position - new Vector3(32f, 0f, 0f), Quaternion.identity);
             return false;
         }
 

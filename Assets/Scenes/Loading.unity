@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3715743342455397080, guid: 45ffeb7a74f45e349948862ddceede17, type: 3}
       propertyPath: selectedLanguage
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7655184141593034511, guid: 45ffeb7a74f45e349948862ddceede17, type: 3}
       propertyPath: m_Name

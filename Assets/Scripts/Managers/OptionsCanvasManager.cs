@@ -17,15 +17,7 @@ namespace Managers
         private GameManager _gameManager;
         private void Start()
         {
-            _canvasGroup = transform.GetComponent<CanvasGroup>();
-            _otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
-            _textsGroup = transform.Find("PlayerSide").Find("TextsGroup");
-
-            GameObject managers = GameObject.Find("Managers");
-            _messagesManager = managers.GetComponent<MessagesManager>();
-            _gameManager = managers.GetComponent<GameManager>();
-            
-            Invoke("UpdateOptions", 1f);
+            CheckVariables();
         }
 
         private bool _canPickOption = false;
@@ -38,17 +30,52 @@ namespace Managers
             if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
         }
 
+        private int _current = 0;
         private void ClickButton(int option)
         {
             _canPickOption = false;
+            if (_current == 0) {
+                PlayEctorTalk1();
+                return;
+            }
+            if (_current == 1) transform.gameObject.SetActive(false);
         }
 
-        private void UpdateOptions()
+        public void PlayEctorTalk0()
         {
-            ClearCurrentOptions();
+            CheckVariables();
             List<string> options = new List<string>();
-            options.Add(_messagesManager.GetTextByID(1000));
-            options.Add(_messagesManager.GetTextByID(1001));
+            options.Add(_messagesManager.GetTextByID(1003));
+            UpdateOptions(_messagesManager.GetTextByID(1002), options);
+            _current = 0;
+        }
+
+        public void PlayEctorTalk1()
+        {
+            CheckVariables();
+            List<string> options = new List<string>();
+            options.Add(_messagesManager.GetTextByID(1004));
+            UpdateOptions(_messagesManager.GetTextByID(1006), options);
+            _current = 1;
+        }
+
+        private void CheckVariables()
+        {
+            if (_canvasGroup == null) _canvasGroup = transform.GetComponent<CanvasGroup>();
+            if (_otherTMP == null) _otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
+            if (_textsGroup == null) _textsGroup = transform.Find("PlayerSide").Find("TextsGroup");
+            
+            GameObject managers = GameObject.Find("Managers");
+            if (_messagesManager == null) _messagesManager = managers.GetComponent<MessagesManager>();
+            if (_gameManager == null) _gameManager = managers.GetComponent<GameManager>();
+        }
+
+        private void UpdateOptions(string talk, List<string> options)
+        {
+            transform.gameObject.SetActive(true);
+            ClearCurrentOptions();
+            TMP_Text otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
+            otherTMP.text = talk;
             ShowOptions(options);
             _canPickOption = true;
         }

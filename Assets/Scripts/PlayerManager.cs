@@ -50,6 +50,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
     }
 
+    private string _talkableNPC = null;
     private void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -61,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !_swordManager.IsAttacking)
         {
             StartCoroutine(PlayerAttack());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && _talkableNPC != null)
+        {
+            GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkToEctor(0);
         }
     }
 
@@ -126,8 +132,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("NPC"))
+        if (other.CompareTag("NPC") && other.TryGetComponent(out NPCInteractions npcInteractions))
         {
+            npcInteractions.ShowToInteract();
+            _talkableNPC = "0";
             return;
         }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerEnteredTrigger(gameObject);
@@ -135,6 +143,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        if (other.CompareTag("NPC") && other.TryGetComponent(out NPCInteractions npcInteractions))
+        {
+            npcInteractions.HideToInteract();
+            _talkableNPC = null;
+            return;
+        }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();
     }
 

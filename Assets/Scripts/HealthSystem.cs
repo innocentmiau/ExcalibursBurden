@@ -16,7 +16,11 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDamage(float value)
     {
-        _healthy.TakeDamage(value);
+        if (_healthy.TakeDamage(value))
+        {
+            Destroy(gameObject);
+            return;
+        }
         UpdateHealthBar();
     }
 

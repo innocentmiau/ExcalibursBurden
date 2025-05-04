@@ -12,7 +12,12 @@ public sealed class Healthy
         Health = MaxHealth;
     }
 
-    public void TakeDamage(float value) => Health = Math.Max(Health - value, 0);
+    public bool TakeDamage(float value)
+    {
+        Health = Math.Max(Health - value, 0);
+        if (Health <= 0) return true;
+        return false;
+    }
 
     public void AddHealth(float value) => Health = Math.Min(Health + value, MaxHealth);
     
