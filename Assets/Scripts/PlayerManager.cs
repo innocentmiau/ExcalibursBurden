@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using Characters;
+using Managers;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -40,6 +43,11 @@ public class PlayerMovement : MonoBehaviour
 
 
         _swordManager = transform.Find("Hand").Find("Sword").GetComponent<SwordManager>();
+    }
+
+    private void Start()
+    {
+        GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
     }
 
     private void Update()
@@ -114,6 +122,20 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetBool("IsGrounded", _isGrounded);
             _animator.SetFloat("VerticalVelocity", _rb.linearVelocity.y);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("NPC"))
+        {
+            return;
+        }
+        if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerEnteredTrigger(gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();
     }
 
     private void OnDrawGizmosSelected()

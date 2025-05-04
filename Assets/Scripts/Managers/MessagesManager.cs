@@ -19,6 +19,19 @@ namespace Managers
             return _textDefaultLanguage.Count > 0 && _textInCurrentLanguage.Count > 0;
         }
 
+        public string GetTextByID(int id, bool defaultLanguage = false)
+        {
+            if (defaultLanguage) return _textDefaultLanguage.GetValueOrDefault(id.ToString(), null);
+            string text = _textInCurrentLanguage.GetValueOrDefault(id.ToString(), null);
+            if (text == null)
+            {
+                string defaultText = _textDefaultLanguage.GetValueOrDefault(id.ToString(), null);
+                if (defaultText == null) return GetText(TextHex.NOT_FOUND, true);
+                return defaultText;
+            }
+            return text;
+        }
+        
         public string GetText(TextHex pickText, bool defaultLanguage = false)
         {
             if (defaultLanguage) return _textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
