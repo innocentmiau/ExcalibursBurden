@@ -31,20 +31,30 @@ namespace Managers
             }
             return text;
         }
+
+        private string AddEmojis(string text)
+        {
+            foreach (string s in _emojis.Keys)
+            {
+                if (text.Contains(s)) text = text.Replace(s, _emojis[s]);
+            }
+            return text;
+        }
         
         public string GetText(TextHex pickText, bool defaultLanguage = false)
         {
-            if (defaultLanguage) return _textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
+            if (defaultLanguage) return AddEmojis(_textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null));
             string text = _textInCurrentLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
             if (text == null)
             {
                 string defaultText = _textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
                 if (defaultText == null) return GetText(TextHex.NOT_FOUND, true);
-                return defaultText;
+                return AddEmojis(defaultText);
             }
-            return text;
+            return AddEmojis(text);
         }
-        
+
+        private Dictionary<string, string> _emojis;
         private void Start()
         {
             // load default language
@@ -69,10 +79,30 @@ namespace Managers
                 _textDefaultLanguage.Add(split[0], text.Substring(split[0].Length + 1));
             }
             
+            SetupEmojis();
+            
             //LoadNewLanguage("portuguese");
             LoadNewLanguage(selectedLanguage.ToString().ToLower());
         }
 
+        private void SetupEmojis()
+        {
+            _emojis = new Dictionary<string, string>();
+            _emojis.Add("🔥", "<sprite=0>");
+            _emojis.Add("💅", "<sprite=1>");
+            _emojis.Add("⚙️", "<sprite=2>");
+            _emojis.Add("🎥", "<sprite=3>");
+            _emojis.Add("⏳", "<sprite=4>");
+            _emojis.Add("‼️", "<sprite=5>");
+            _emojis.Add("💯", "<sprite=6>");
+            _emojis.Add("💨", "<sprite=7>");
+            _emojis.Add("👑", "<sprite=8>");
+            _emojis.Add("🕺", "<sprite=9>");
+            _emojis.Add("🗿", "<sprite=10>");
+            _emojis.Add("😤", "<sprite=11>");
+            _emojis.Add("💀", "<sprite=12>");
+        }
+        
         public void LoadNewLanguage(string language = "english")
         {
             TextAsset jsonData = Resources.Load<TextAsset>("Messages/" + language);

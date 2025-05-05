@@ -44,6 +44,7 @@ namespace Managers
 
         private IEnumerator LoadMainMenuAsync()
         {
+            yield return new WaitForSeconds(3f);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
             while (!asyncLoad.isDone)
             {

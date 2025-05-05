@@ -2,6 +2,6 @@
 {
     public enum Languages
     {
-        ENGLISH, PORTUGUESE, PIRATE, MEOWY
+        ENGLISH, ENGLISH_MEDIEVAL, PORTUGUESE, PIRATE, MEOWY, BRAINROT
     }
 }
