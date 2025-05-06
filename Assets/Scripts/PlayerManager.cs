@@ -4,7 +4,7 @@ using Characters;
 using Managers;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 8f;
@@ -50,7 +50,9 @@ public class PlayerMovement : MonoBehaviour
         GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
     }
 
-    private string _talkableNPC = null;
+    private int _talkingNpcStep = 0;
+    public void SetTalkingNpcStep(int value) => _talkingNpcStep = value;
+    private NPCManager _talkableNpc;
     private void Update()
     {
         _horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -64,9 +66,10 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(PlayerAttack());
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && _talkableNPC != null)
+        if (Input.GetKeyDown(KeyCode.E) && _talkableNpc != null)
         {
-            GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkToEctor(0);
+            GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkTo(_talkableNpc, _talkingNpcStep);
+            //GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkToEctor(0);
         }
     }
 
@@ -132,10 +135,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("NPC") && other.TryGetComponent(out NPCInteractions npcInteractions))
+        if (other.CompareTag("NPC") 
+            && other.TryGetComponent(out NPCInteractions npcInteractions) 
+            && other.TryGetComponent(out NPCManager npcManager))
         {
             npcInteractions.ShowToInteract();
-            _talkableNPC = "0";
+            _talkableNpc = npcManager;
             return;
         }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerEnteredTrigger(gameObject);
@@ -146,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("NPC") && other.TryGetComponent(out NPCInteractions npcInteractions))
         {
             npcInteractions.HideToInteract();
-            _talkableNPC = null;
+            _talkableNpc = null;
             return;
         }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();

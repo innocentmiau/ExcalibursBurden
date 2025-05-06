@@ -83,6 +83,16 @@ namespace Managers
             canvasG.alpha = 0f;
             canvasG.gameObject.SetActive(false);
         }
+
+        // colorful names for npcs? maybe?
+        private string FormatTextWithNpcColors(string text)
+        {
+            if (text.Contains("Ector"))
+            {
+                text = text.Replace("Ector", "<color=#78db53>Ector</color>");
+            }
+            return text;
+        }
         
         private IEnumerator StartAnimation()
         {
@@ -95,16 +105,18 @@ namespace Managers
             string text = _messagesManager.GetTextByID(1000);
             for (int i = 0; i < text.Length; i++)
             {
-                string newText = text.Substring(0,i) + "<color=#00000000>" + text.Substring(i);
+                string startText = FormatTextWithNpcColors(text.Substring(0, i));
+                string newText = startText + "<color=#00000000>" + text.Substring(i);
                 tmp.text = newText;
                 yield return new WaitForSeconds(2f/text.Length);
             }
-            tmp.text = text;
+            tmp.text = FormatTextWithNpcColors(text);
+            yield return new WaitForSeconds(1f);
 
             float elapsed = 0;
-            while (elapsed < 3f)
+            while (elapsed < 1.5f)
             {
-                cg.alpha = Mathf.Lerp(1f, 0f, (elapsed / 3f));
+                cg.alpha = Mathf.Lerp(1f, 0f, (elapsed / 1.5f));
                 elapsed += Time.deltaTime;
                 yield return null;
             }

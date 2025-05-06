@@ -43,15 +43,15 @@ namespace Managers
         
         public string GetText(TextHex pickText, bool defaultLanguage = false)
         {
-            if (defaultLanguage) return AddEmojis(_textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null));
+            if (defaultLanguage) return _textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
             string text = _textInCurrentLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
             if (text == null)
             {
                 string defaultText = _textDefaultLanguage.GetValueOrDefault(((int)pickText).ToString(), null);
                 if (defaultText == null) return GetText(TextHex.NOT_FOUND, true);
-                return AddEmojis(defaultText);
+                return defaultText;
             }
-            return AddEmojis(text);
+            return text;
         }
 
         private Dictionary<string, string> _emojis;
@@ -123,7 +123,12 @@ namespace Managers
             foreach (string text in data.texts)
             {
                 string[] split = text.Split(" ");
-                _textInCurrentLanguage.Add(split[0], text.Substring(split[0].Length + 1));
+                string _text = text.Substring(split[0].Length + 1);
+                foreach (string s in _emojis.Keys)
+                {
+                    if (_text.Contains(s)) _text = _text.Replace(s, _emojis[s]);
+                }
+                _textInCurrentLanguage.Add(split[0], _text);
             }
 
             foreach (string key in _textInCurrentLanguage.Keys)

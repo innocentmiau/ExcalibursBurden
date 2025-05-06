@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Characters;
+using UnityEngine;
 
 namespace Managers
 {
@@ -7,9 +8,10 @@ namespace Managers
 
         [SerializeField] private OptionsCanvasManager optionsCanvasManager;
 
-        public void TalkToEctor(int option)
+        public void TalkTo(NPCManager talkingNpc, int currentStep)
         {
-            if (option == 0) optionsCanvasManager.PlayEctorTalk0();
+            //if (option == 0) optionsCanvasManager.PlayEctorTalk0();
+            optionsCanvasManager.StartConversation(talkingNpc, currentStep);
         }
         
     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Characters;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -15,6 +17,7 @@ namespace Managers
 
         private MessagesManager _messagesManager;
         private GameManager _gameManager;
+        private PlayerManager _playerManager;
         private void Start()
         {
             CheckVariables();
@@ -30,17 +33,39 @@ namespace Managers
             if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
         }
 
-        private int _current = 0;
+        private NPCManager _latestNpcManager = null;
+        public void StartConversation(NPCManager npcManager, int talkingStep)
+        {
+            CheckVariables();
+            //List<string> options = new List<string>();
+            //options.Add(_messagesManager.GetTextByID(1003));
+            (int id, int npcTalk, Dictionary<int, int> answers) = npcManager.GetTalkStuff(talkingStep);
+            if (id == -2)
+            {
+                transform.gameObject.SetActive(false);
+                return;
+            }
+            UpdateOptions(id, npcTalk, answers);
+            _latestNpcManager = npcManager;
+        }
+        
         private void ClickButton(int option)
         {
+            if (_latestNpcManager == null) return;
+            Debug.Log("Clicked " + option);
             _canPickOption = false;
+            
+            StartConversation(_latestNpcManager, _clickingOptions[option-1].ClickedOption);
+            /*
             if (_current == 0) {
                 PlayEctorTalk1();
                 return;
             }
             if (_current == 1) transform.gameObject.SetActive(false);
+            */
         }
-
+        
+        /*
         public void PlayEctorTalk0()
         {
             CheckVariables();
@@ -58,6 +83,7 @@ namespace Managers
             UpdateOptions(_messagesManager.GetTextByID(1006), options);
             _current = 1;
         }
+        */
 
         private void CheckVariables()
         {
@@ -68,15 +94,21 @@ namespace Managers
             GameObject managers = GameObject.Find("Managers");
             if (_messagesManager == null) _messagesManager = managers.GetComponent<MessagesManager>();
             if (_gameManager == null) _gameManager = managers.GetComponent<GameManager>();
+            if (_playerManager == null) _playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
         }
 
-        private void UpdateOptions(string talk, List<string> options)
+        private void UpdateOptions(int id, int npcTalk, Dictionary<int, int> answers)
         {
             transform.gameObject.SetActive(true);
             ClearCurrentOptions();
             TMP_Text otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
-            otherTMP.text = talk;
-            ShowOptions(options);
+            otherTMP.text = _messagesManager.GetTextByID(npcTalk);
+            if (answers == null)
+            {
+                answers = new Dictionary<int, int>();
+                answers.Add(-1, -1);
+            }
+            ShowOptions(answers);
             _canPickOption = true;
         }
 
@@ -90,15 +122,31 @@ namespace Managers
                 }
             }
         }
-        
-        private void ShowOptions(List<string> options)
+
+        private List<OptionData> _clickingOptions = new List<OptionData>();
+        private void ShowOptions(Dictionary<int, int> options)
         {
             int count = 1;
-            foreach (string option in options)
+            _clickingOptions.Clear();
+            foreach (int key in options.Keys)
             {
                 Transform trans = Instantiate(arthurOptionPrefab, _textsGroup).transform;
-                trans.Find("Text").GetComponent<TMP_Text>().text = option;
+                OptionData optionData = trans.gameObject.AddComponent<OptionData>();
+                optionData.Setup(options[key]);
+                _clickingOptions.Add(optionData);
+                trans.Find("Text").GetComponent<TMP_Text>().text = key != -1 ? _messagesManager.GetTextByID(key) : "<color=#e0b275>" + _messagesManager.GetTextByID(8);
                 trans.Find("KeyPanel").Find("Text").GetComponent<TMP_Text>().text = count.ToString();
+                if (key == -1)
+                {
+                    if (trans.TryGetComponent(out Image image))
+                    {
+                        image.color = new Color(0.6f, 0.38f, 0.18f, 0.65f);
+                    }
+                    if (trans.Find("KeyPanel").TryGetComponent(out Image image2))
+                    {
+                        image2.color = new Color(0.5f, 0.3f, 0.1f, 1f);
+                    }
+                }
                 count++;
             }
         }

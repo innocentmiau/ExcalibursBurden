@@ -12,6 +12,7 @@ public class HealthSystem : MonoBehaviour
     public void Setup(Character character)
     {
         _healthy = new Healthy(character.maxHealth);
+        UpdateHealthBar();
     }
 
     public void TakeDamage(float value)
