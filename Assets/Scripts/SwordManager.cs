@@ -27,7 +27,7 @@ public class SwordManager : MonoBehaviour
         StartAttack = Time.time;
         // for tests purposes
         GetComponent<SpriteRenderer>().color = new Color(1f, 0f, 0f, 1f);
-        transform.Find("Trail").gameObject.SetActive(true);
+        // transform.Find("Trail").gameObject.SetActive(true);
     }
 
     public void StopAttacking()
@@ -36,6 +36,6 @@ public class SwordManager : MonoBehaviour
         Damage = 0f;
         IsAttacking = false;
         GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
-        transform.Find("Trail").gameObject.SetActive(false);
+        // transform.Find("Trail").gameObject.SetActive(false);
     }
 }

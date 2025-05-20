@@ -47,14 +47,19 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
+        //GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
     }
 
+
+    private bool _canMove = false;
+    public void SetCanMove(bool value) => _canMove = value;
+    
     private int _talkingNpcStep = 0;
     public void SetTalkingNpcStep(int value) => _talkingNpcStep = value;
     private NPCManager _talkableNpc;
     private void Update()
     {
+        if (!_canMove) return;
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
@@ -128,7 +133,7 @@ public class PlayerManager : MonoBehaviour
         if (_animator != null)
         {
             _animator.SetFloat("Speed", Mathf.Abs(_horizontalInput));
-            _animator.SetBool("IsGrounded", _isGrounded);
+            //_animator.SetBool("IsGrounded", _isGrounded);
             _animator.SetFloat("VerticalVelocity", _rb.linearVelocity.y);
         }
     }
