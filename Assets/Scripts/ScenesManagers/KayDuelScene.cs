@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KaiDuelScene : MonoBehaviour
+public class KayDuelScene : MonoBehaviour
 {
 
     [SerializeField] private PlayerManager playerManager;
@@ -9,4 +9,10 @@ public class KaiDuelScene : MonoBehaviour
     {
         playerManager.SetCanMove(true);
     }
+
+    public void KayLost()
+    {
+        Debug.Log("a");
+    }
+    
 }

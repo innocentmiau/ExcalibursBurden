@@ -19,6 +19,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (_healthy.TakeDamage(value))
         {
+            if (gameObject.name.Equals("Kay")) FindFirstObjectByType<KayDuelScene>().KayLost();
             Destroy(gameObject);
             return;
         }
