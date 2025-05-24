@@ -20,14 +20,14 @@ namespace Characters
         [SerializeField] private GameObject AttackPrefab;
         [SerializeField] private float AttackSpeed = 2f;
         
-        private Transform _playerTransform;
+        [SerializeField] private Transform _playerTransform;
         private Rigidbody2D _rb;
         private bool isMoving = false;
         
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             //spriteRenderer = GetComponent<SpriteRenderer>();
             //animator = GetComponent<Animator>();
         }

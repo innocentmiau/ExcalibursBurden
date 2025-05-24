@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+
+    [SerializeField] private CanvasManager canvasManager;
+    
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 8f;
     [SerializeField] private float jumpForce = 16f;
@@ -29,7 +32,9 @@ public class PlayerManager : MonoBehaviour
     private bool _jumpPressed;
 
     [SerializeField] private Character characterData;
+    [SerializeField] private float attackCooldown = 2f;
     private SwordManager _swordManager;
+    private float _attackCooldown = 0f;
     
     private void Awake()
     {
@@ -59,6 +64,7 @@ public class PlayerManager : MonoBehaviour
     private NPCManager _talkableNpc;
     private void Update()
     {
+        _attackCooldown -= Time.deltaTime;
         if (!_canMove) return;
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         
@@ -66,7 +72,7 @@ public class PlayerManager : MonoBehaviour
         
         if (useAnimation && _animator != null) UpdateAnimations();
 
-        if (Input.GetMouseButtonDown(0) && !_swordManager.IsAttacking)
+        if (Input.GetMouseButtonDown(0) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
         {
             StartCoroutine(PlayerAttack());
         }
@@ -80,12 +86,14 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator PlayerAttack()
     {
+        _attackCooldown = attackCooldown;
+        canvasManager.StartCooldownNormalAttack(_attackCooldown);
         _animator.SetBool("NormalAttack", true);
         yield return new WaitForSeconds(0.35f);
         _swordManager.SetAttacking(5f);
+        _animator.SetBool("NormalAttack", false);
         yield return new WaitForSeconds(0.4f);
         _swordManager.StopAttacking();
-        _animator.SetBool("NormalAttack", false);
     }
 
     private void FixedUpdate()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Important;
 using Managers;
 using TMPro;
@@ -8,6 +9,7 @@ public class TMPLanguageText : MonoBehaviour
 {
 
     [SerializeField] private TextHex textType;
+    [SerializeField] private bool forceUpperCase = false;
 
     private TMP_Text _tmp;
     private MessagesManager _manager;
@@ -17,12 +19,25 @@ public class TMPLanguageText : MonoBehaviour
         StartCoroutine(Setup());
     }
 
+    public void RefreshText()
+    {
+        StartCoroutine(Setup());
+    }
+    
     private IEnumerator Setup()
     {
         while (true)
         {
-            _manager = GameObject.Find("Managers").GetComponent<MessagesManager>();
-            if (_manager != null) break;
+            try
+            {
+                _manager = GameObject.Find("Managers").GetComponent<MessagesManager>();
+                if (_manager != null) break;
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                yield break;
+            }
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -36,6 +51,10 @@ public class TMPLanguageText : MonoBehaviour
     
     private void SetText(string text)
     {
-        if (_tmp != null) _tmp.text = text;
+        if (_tmp != null)
+        {
+            if (forceUpperCase) text = text.ToUpper();
+            _tmp.text = text;
+        }
     }
 }

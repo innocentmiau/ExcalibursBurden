@@ -118,7 +118,7 @@ namespace Managers
                 return;
             }
 
-            //selectedLanguage = (Languages)Enum.Parse(typeof(Languages), language.ToUpper());
+            selectedLanguage = (Languages)Enum.Parse(typeof(Languages), language.ToUpper());
             _textInCurrentLanguage = new Dictionary<string, string>();
             foreach (string text in data.texts)
             {

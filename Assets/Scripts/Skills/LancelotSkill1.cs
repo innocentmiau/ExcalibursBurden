@@ -1,7 +1,9 @@
 using System.Collections;
+using System.Numerics;
 using Characters;
 using UnityEngine;
 using UnityEngine.UI;
+using Vector3 = UnityEngine.Vector3;
 
 public class LancelotSkill1 : MonoBehaviour
 {
@@ -29,7 +31,8 @@ public class LancelotSkill1 : MonoBehaviour
         if (_skillTrigger.IsPlayerInTrigger() && _skillTrigger.GetPlayerObject() != null)
         {
             GameObject playerOBj = _skillTrigger.GetPlayerObject();
-            if (playerOBj.TryGetComponent(out HealthSystem healthSystem))
+            float distance = Vector3.Distance(playerOBj.transform.position, transform.position);
+            if (playerOBj.TryGetComponent(out HealthSystem healthSystem) && distance <= 16f)
             {
                 healthSystem.TakeDamage(5f);
             }

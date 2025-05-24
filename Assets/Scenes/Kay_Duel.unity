@@ -321,6 +321,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169088596782843148, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2223956065298210685, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.2994604
+      objectReference: {fileID: 0}
     - target: {fileID: 2615459295783946329, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
       propertyPath: m_Name
       value: MainCanvas
@@ -539,7 +567,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -559,7 +587,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
@@ -576,14 +604,14 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 1
-    m_Data: {fileID: 745751397}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: -2124267579, guid: bd03b09174413e349a7f1baf9dad6196, type: 3}
   - m_RefCount: 1
+    m_Data: {fileID: 745751397}
+  - m_RefCount: 1
     m_Data: {fileID: 7848907876678394987, guid: bd03b09174413e349a7f1baf9dad6196, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 5
     m_Data:
@@ -731,7 +759,7 @@ Transform:
   m_GameObject: {fileID: 331748844}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43, y: 26, z: 0}
+  m_LocalPosition: {x: -218.36, y: 26, z: 0}
   m_LocalScale: {x: 0.96, y: 0.96, z: 0.96}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -985,6 +1013,14 @@ PrefabInstance:
     - target: {fileID: 2218983776261300670, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2780037038317292680, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
+      propertyPath: canvasManager
+      value: 
+      objectReference: {fileID: 1154700717}
+    - target: {fileID: 2780037038317292680, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
+      propertyPath: attackCooldown
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7845422651283882062, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
       propertyPath: healthBar
@@ -2680,6 +2716,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6469803467031887064, guid: d6624c3f9e21fe34288e9078e836d20c, type: 3}
   m_PrefabInstance: {fileID: 1148897123}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1154700717 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1342574985072743232, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+  m_PrefabInstance: {fileID: 76832875}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4ad45ed7bafa241836c53177bd898c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1163223544
 GameObject:
   m_ObjectHideFlags: 0
@@ -3153,6 +3200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kayDuelScene: {fileID: 1318288459}
+--- !u!4 &1606886505 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8769297006391045626, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
+  m_PrefabInstance: {fileID: 377556905}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1844970224
 GameObject:
   m_ObjectHideFlags: 0
@@ -3371,6 +3423,7 @@ MonoBehaviour:
   attackCooldown: 2
   AttackPrefab: {fileID: 3859399078069619419, guid: e1ede9c9cfdaf62499203bb885949cdc, type: 3}
   AttackSpeed: 2
+  _playerTransform: {fileID: 1606886505}
 --- !u!1 &1848668760
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,7 +3505,7 @@ Transform:
   m_GameObject: {fileID: 1848668760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 509, y: 26, z: 0}
+  m_LocalPosition: {x: 334.23767, y: 26, z: 0}
   m_LocalScale: {x: 0.96, y: 0.96, z: 0.96}
   m_ConstrainProportionsScale: 1
   m_Children: []
