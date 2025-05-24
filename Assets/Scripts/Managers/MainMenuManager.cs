@@ -19,6 +19,7 @@ namespace Managers
         [SerializeField] private TMP_Dropdown languagesDropdown;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private TMP_Text volumeTMP;
+        [SerializeField] private AudioSource backgroundSource;
 
         private void Start()
         {
@@ -37,6 +38,16 @@ namespace Managers
 
             languagesDropdown.value = 0;
             languagesDropdown.RefreshShownValue();
+
+            try
+            {
+                GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
+                volumeSlider.value = man.Volume;
+            }
+            catch (Exception e)
+            {
+                volumeSlider.value = 1f;
+            }
             
             optionsMenu.gameObject.SetActive(false);
 
@@ -50,6 +61,15 @@ namespace Managers
 
         private IEnumerator LoadGameAsync()
         {
+            float elapsed = 0.5f;
+            float startValue = backgroundSource.volume;
+            while (true)
+            {
+                backgroundSource.volume = (startValue * (elapsed * 2));
+                elapsed -= Time.deltaTime;
+                yield return null;
+                if (elapsed <= 0) break;
+            }
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("House_1");
             while (!asyncLoad.isDone)
             {
@@ -78,9 +98,19 @@ namespace Managers
         private IEnumerator UpdatingVolume()
         {
             yield return new WaitForSeconds(0.1f);
+            float value = volumeSlider.value;
             foreach (AudioSource eachSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
             {
-                eachSource.volume = volumeSlider.value;
+                eachSource.volume = value;
+            }
+            try
+            {
+                GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
+                man.UpdateVolume(value);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
             }
         }
 

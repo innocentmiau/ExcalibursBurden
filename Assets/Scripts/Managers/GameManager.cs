@@ -22,6 +22,9 @@ namespace Managers
             IsGamePaused = false;
         }
         
+        public float Volume { get; private set; }
+        public void UpdateVolume(float value) => Volume = value;
+        
         private Data _data;
 
         private MessagesManager _messagesManager;
@@ -29,6 +32,7 @@ namespace Managers
         {
             DontDestroyOnLoad(gameObject);
             _data = new Data();
+            UpdateVolume(1f);
 
             _messagesManager = transform.GetComponent<MessagesManager>();
             
