@@ -6,6 +6,7 @@ using Important;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -16,6 +17,8 @@ namespace Managers
         [SerializeField] private Transform canvas;
         [SerializeField] private RectTransform optionsMenu;
         [SerializeField] private TMP_Dropdown languagesDropdown;
+        [SerializeField] private Slider volumeSlider;
+        [SerializeField] private TMP_Text volumeTMP;
 
         private void Start()
         {
@@ -62,6 +65,23 @@ namespace Managers
         public void ClickButtonOptions()
         {
             optionsMenu.gameObject.SetActive(true);
+        }
+
+        private Coroutine _updatingVolumeCoro;
+        public void UpdatedVolumeSlider()
+        {
+            volumeTMP.text = $"{volumeSlider.value:F2}";
+            if (_updatingVolumeCoro != null) StopCoroutine(_updatingVolumeCoro);
+            _updatingVolumeCoro = StartCoroutine(UpdatingVolume());
+        }
+
+        private IEnumerator UpdatingVolume()
+        {
+            yield return new WaitForSeconds(0.1f);
+            foreach (AudioSource eachSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None))
+            {
+                eachSource.volume = volumeSlider.value;
+            }
         }
 
         public void UpdateLanguageUpdate()
