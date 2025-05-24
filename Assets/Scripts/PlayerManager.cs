@@ -84,10 +84,30 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private Coroutine _tookDamageCoro;
+    public void TookDamage()
+    {
+        if (_tookDamageCoro != null) StopCoroutine(_tookDamageCoro);
+        _tookDamageCoro = StartCoroutine(TookDamageAnimation());
+    }
+
+    private IEnumerator TookDamageAnimation()
+    {
+        Color c = _sr.color;
+        c.a = 0.2f;
+        _sr.color = c;
+        yield return new WaitForSeconds(0.1f);
+        Color cc = Color.white * 10f;
+        cc.a = 1f;
+        _sr.color = cc;
+        yield return new WaitForSeconds(0.15f);
+        _sr.color = Color.white;
+    }
+
     private IEnumerator PlayerAttack()
     {
         _attackCooldown = attackCooldown;
-        canvasManager.StartCooldownNormalAttack(_attackCooldown);
+        if (canvasManager != null) canvasManager.StartCooldownNormalAttack(_attackCooldown);
         _animator.SetBool("NormalAttack", true);
         yield return new WaitForSeconds(0.35f);
         _swordManager.SetAttacking(5f);

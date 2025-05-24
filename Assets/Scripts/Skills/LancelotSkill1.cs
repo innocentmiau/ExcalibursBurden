@@ -32,9 +32,16 @@ public class LancelotSkill1 : MonoBehaviour
         {
             GameObject playerOBj = _skillTrigger.GetPlayerObject();
             float distance = Vector3.Distance(playerOBj.transform.position, transform.position);
-            if (playerOBj.TryGetComponent(out HealthSystem healthSystem) && distance <= 16f)
+            if (distance <= 16f)
             {
-                healthSystem.TakeDamage(5f);
+                if (playerOBj.TryGetComponent(out HealthSystem healthSystem))
+                {
+                    healthSystem.TakeDamage(5f);
+                }
+                if (playerOBj.TryGetComponent(out PlayerManager playerManager))
+                {
+                    playerManager.TookDamage();
+                }
             }
         }
 

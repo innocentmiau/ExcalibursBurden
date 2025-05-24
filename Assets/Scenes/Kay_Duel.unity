@@ -1014,6 +1014,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2406228339308170181, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2780037038317292680, guid: 2c55f6b633fe7e445aa3f1ab0c8ee18b, type: 3}
       propertyPath: canvasManager
       value: 
