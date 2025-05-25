@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -7,8 +8,16 @@ public class WalkingBehindEffect : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteToEffect;
     [SerializeField] private float time = 0.5f;
 
+    private bool _isEnabled = false;
+
+    public void OnEnable()
+    {
+        _isEnabled = true;
+    }
+
     public void PlayerIsBehind()
     {
+        if (!_isEnabled) return;
         if (_appeCoro != null) StopCoroutine(_appeCoro);
         //spriteToEffect.color = new Color(1f, 1f, 1f, 0.75f);
         _disaCoro = StartCoroutine(Disappearing(0.75f));
@@ -34,6 +43,7 @@ public class WalkingBehindEffect : MonoBehaviour
     
     public void PlayerIsNotBehind()
     {
+        if (!_isEnabled) return;
         if (_disaCoro != null) StopCoroutine(_disaCoro);
         //spriteToEffect.color = new Color(1f, 1f, 1f, 1f);
         _appeCoro = StartCoroutine(Appearing(1f));

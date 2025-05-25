@@ -77,6 +77,7 @@ public class PlayerManager : MonoBehaviour
     private float _talkingDelay = 0f;
     private House2Scene _house2Scene;
     private Florest1Scene _florest1Scene;
+    private Florest2Scene _florest21Scene;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -113,6 +114,15 @@ public class PlayerManager : MonoBehaviour
                 {
                     _florest1Scene = florest1Scene;
                     if (!florest1Scene.AlreadyTalked) florest1Scene.TalkingToEctor(_talkableNpc);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Florest_2"))
+            {
+                if (GameObject.Find("SceneManager").TryGetComponent(out Florest2Scene florest21Scene))
+                {
+                    _florest21Scene = florest21Scene;
+                    if (!florest21Scene.AlreadyTalked) florest21Scene.TalkingToEctor(_talkableNpc);
                 }
             }
         }
@@ -234,6 +244,14 @@ public class PlayerManager : MonoBehaviour
                     if (SceneManager.GetActiveScene().name.Equals("House_2") && _house2Scene != null)
                     {
                         if (_house2Scene.AlreadyTalked) return;
+                    }
+                    if (SceneManager.GetActiveScene().name.Equals("Florest_1") && _florest1Scene != null)
+                    {
+                        if (_florest1Scene.AlreadyTalked) return;
+                    }
+                    if (SceneManager.GetActiveScene().name.Equals("Florest_2") && _florest1Scene != null)
+                    {
+                        if (_florest1Scene.AlreadyTalked) return;
                     }
                     npcTransInteractions.ShowToInteract();
                     _talkableNpc = npcTransManager;
