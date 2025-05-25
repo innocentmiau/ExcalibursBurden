@@ -13,6 +13,7 @@ namespace Characters
 
         public void PlayerEnteredTrigger(GameObject playerObject)
         {
+            Debug.Log("Entered VFX trigger");
             _inTrigger = true;
             _playerObject = playerObject;
         }

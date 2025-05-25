@@ -3,11 +3,14 @@ using System.Collections;
 using Characters;
 using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour
 {
 
     [SerializeField] private CanvasManager canvasManager;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip slashClip;
     
     [Header("Movement Parameters")]
     [SerializeField] private float moveSpeed = 8f;
@@ -50,9 +53,17 @@ public class PlayerManager : MonoBehaviour
         _swordManager = transform.Find("Hand").Find("Sword").GetComponent<SwordManager>();
     }
 
+    private GameManager _gameManager;
     private void Start()
     {
-        //GameObject.Find("Managers").GetComponent<GameManager>().PlayStartMoment();
+        try
+        {
+            _gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
+        }
+        catch (Exception e)
+        {
+            return;
+        }
     }
 
 
@@ -104,6 +115,17 @@ public class PlayerManager : MonoBehaviour
         _sr.color = Color.white;
     }
 
+    public void PlaySlashSound()
+    {
+        if (audioSource != null)
+        {
+            float pitch = Random.Range(0.7f, 1.2f);
+            audioSource.pitch = pitch;
+            float volume = _gameManager != null ? _gameManager.Volume : 1f;
+            audioSource.PlayOneShot(slashClip, volume);
+        }
+    }
+    
     private IEnumerator PlayerAttack()
     {
         _attackCooldown = attackCooldown;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Characters
@@ -23,13 +24,14 @@ namespace Characters
         [SerializeField] private Transform _playerTransform;
         private Rigidbody2D _rb;
         private bool isMoving = false;
+        private Animator _animator;
         
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
             //spriteRenderer = GetComponent<SpriteRenderer>();
-            //animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Update()
@@ -60,7 +62,7 @@ namespace Characters
         
         private void FixedUpdate()
         {
-            if (canSeePlayer && _playerTransform != null)
+            if (canSeePlayer && _playerTransform != null && _attackAnimeCoro != null)
             {
                 MoveTowardsPlayer();
             }
@@ -74,10 +76,16 @@ namespace Characters
         private void MoveTowardsPlayer()
         {
             isMoving = true;
-        
+            float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
             float direction = _playerTransform.position.x > transform.position.x ? 1f : -1f;
-        
-            _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
+            if (distanceToPlayer > 20f)
+            {
+                _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
+            }
+            else
+            {
+                _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
+            }
         
             transform.rotation = Quaternion.Euler(0f, direction > 0f ? 0f : 180f, 0f);
         }
@@ -93,11 +101,27 @@ namespace Characters
                 Cast();
             }
         }
+
+        private Coroutine _attackAnimeCoro;
+        private void EnableAttackAnimation()
+        {
+            if (_attackAnimeCoro != null) StopCoroutine(_attackAnimeCoro);
+            _attackAnimeCoro = StartCoroutine(AttackAnimation());
+        }
+
+        private IEnumerator AttackAnimation()
+        {
+            yield return new WaitForSeconds(2f);
+            if (_animator) _animator.SetBool("Attack", true);
+            yield return new WaitForSeconds(0.1f);
+            if (_animator) _animator.SetBool("Attack", false);
+        }
         
         private bool Cast()
         {
             if (AttackPrefab == null) return false;
-            Instantiate(AttackPrefab, transform.position - new Vector3(32f, 0f, 0f), Quaternion.identity);
+            EnableAttackAnimation();
+            Instantiate(AttackPrefab, _playerTransform.transform.position, Quaternion.identity);
             return true;
         }
         

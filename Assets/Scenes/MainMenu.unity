@@ -1377,7 +1377,7 @@ GameObject:
   - component: {fileID: 395370208}
   - component: {fileID: 395370207}
   m_Layer: 0
-  m_Name: Sound
+  m_Name: BackgroundSound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1398,7 +1398,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2305,6 +2305,7 @@ MonoBehaviour:
   languagesDropdown: {fileID: 1871644170}
   volumeSlider: {fileID: 1891274987}
   volumeTMP: {fileID: 1257302332}
+  backgroundSource: {fileID: 395370207}
 --- !u!1 &959345928
 GameObject:
   m_ObjectHideFlags: 0
