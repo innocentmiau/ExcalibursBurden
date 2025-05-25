@@ -100,6 +100,10 @@ namespace Characters
             {
                 _lastAttacked = swordManager.StartAttack;
                 _healthSystem.TakeDamage(swordManager.Damage);
+                if (transform.TryGetComponent(out EnemyManager enemyManager))
+                {
+                    enemyManager.TookDamage();
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using Managers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Characters
 {
@@ -20,18 +22,30 @@ namespace Characters
         [SerializeField] private float attackCooldown = 2f;
         [SerializeField] private GameObject AttackPrefab;
         [SerializeField] private float AttackSpeed = 2f;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip slashClip;
         
         [SerializeField] private Transform _playerTransform;
         private Rigidbody2D _rb;
         private bool isMoving = false;
         private Animator _animator;
+        private SpriteRenderer _sr;
+        private GameManager _gameManager;
         
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
             //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            //spriteRenderer = GetComponent<SpriteRenderer>();
+            _sr = GetComponent<SpriteRenderer>();
             _animator = GetComponent<Animator>();
+            try
+            {
+                _gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
+            }
+            catch (Exception e)
+            {
+                return;
+            }
         }
 
         private void Update()
@@ -62,7 +76,8 @@ namespace Characters
         
         private void FixedUpdate()
         {
-            if (canSeePlayer && _playerTransform != null && _attackAnimeCoro != null)
+            float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
+            if (canSeePlayer && _playerTransform != null && _attackAnimeCoro == null && distanceToPlayer > attackRange)
             {
                 MoveTowardsPlayer();
             }
@@ -76,16 +91,8 @@ namespace Characters
         private void MoveTowardsPlayer()
         {
             isMoving = true;
-            float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
             float direction = _playerTransform.position.x > transform.position.x ? 1f : -1f;
-            if (distanceToPlayer > 20f)
-            {
-                _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
-            }
-            else
-            {
-                _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
-            }
+            _rb.linearVelocity = new Vector2(direction * moveSpeed, _rb.linearVelocity.y);
         
             transform.rotation = Quaternion.Euler(0f, direction > 0f ? 0f : 180f, 0f);
         }
@@ -102,6 +109,37 @@ namespace Characters
             }
         }
 
+        public void PlaySlashSound()
+        {
+            if (audioSource != null)
+            {
+                float pitch = Random.Range(0.7f, 1.2f);
+                audioSource.pitch = pitch;
+                float volume = _gameManager != null ? _gameManager.Volume : 1f;
+                audioSource.PlayOneShot(slashClip, volume);
+            }
+        }
+
+        private Coroutine _tookDamageCoro;
+        public void TookDamage()
+        {
+            if (_tookDamageCoro != null) StopCoroutine(_tookDamageCoro);
+            _tookDamageCoro = StartCoroutine(TookDamageAnimation());
+        }
+
+        private IEnumerator TookDamageAnimation()
+        {
+            Color c = _sr.color;
+            c.a = 0.2f;
+            _sr.color = c;
+            yield return new WaitForSeconds(0.1f);
+            Color cc = Color.white * 10f;
+            cc.a = 1f;
+            _sr.color = cc;
+            yield return new WaitForSeconds(0.15f);
+            _sr.color = Color.white;
+        }
+        
         private Coroutine _attackAnimeCoro;
         private void EnableAttackAnimation()
         {
@@ -111,10 +149,11 @@ namespace Characters
 
         private IEnumerator AttackAnimation()
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1.8f);
             if (_animator) _animator.SetBool("Attack", true);
             yield return new WaitForSeconds(0.1f);
             if (_animator) _animator.SetBool("Attack", false);
+            _attackAnimeCoro = null;
         }
         
         private bool Cast()
