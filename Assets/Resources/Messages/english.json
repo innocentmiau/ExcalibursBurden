@@ -11,6 +11,7 @@
     "8 Close dialogue.",
     "9 Language",
     "10 Audio Volume",
+    "999 ...",
     "1000 Ector:\nArthur! Arthur! Come here!",
     "1001 Use A and D to Move and E To interact",
     "1002 Arthur! Before we leave for the tournament, one last training session with Kay. Come prove to me you have not forgotten all I've taught you!",
@@ -22,6 +23,23 @@
     "1008 You move well. Your future shines bright.",
     "1009 Every lesson, every strike, is a step toward something greater",
     "1010 Enough. Kay go get ready. Arthur go help Kay and let´s go to the tournament!",
-    "1011 Chapter 1 : Sword in the Stone"
+    "1011 Chapter 1:\nSword in the Stone",
+    "1012 Today is a day of honor, Kay. Represent our house with pride.",
+    "1013 Father, I will! No one will best me ",
+    "1014 Strength wins battles, but pride loses wars.",
+    "1015 I have trained harder than any knight!",
+    "1016 Mind your temper, boy.",
+    "1017 Kay is to compete today. Arthur, stay close. Watch and learn.",
+    "1018 Yes sir!",
+    "1019 Where's my sword? Quickly, Arthur! Go and fetch it!",
+    "1020 Hum? Where?",
+    "1021 I left it at the Sword tent!",
+    "1022 I'll get it",
+    "1023 Sorry Sir, Can u help me find the Sword tent?",
+    "1024 The tent with the swords is down the main path, lad! There must be Baltas there i think...",
+    "1025 Thanks. Every second counts.",
+    "1026 Heh! Since you're here... care for a quick spar? ",
+    "1027 I would... but I have no sword at the moment.",
+    "1028 No sword? Then you best hurry. Can't fight fate with empty hands!"
   ]
 }

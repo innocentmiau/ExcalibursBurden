@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Kay_Duel.unity
     guid: 0dcb0ab9f67b80a46baca8d40ef7bf5c
+  - enabled: 1
+    path: Assets/Scenes/Florest_1.unity
+    guid: a3bda5d39e798be47b8dd4d298c50731
+  - enabled: 1
+    path: Assets/Scenes/Florest_2.unity
+    guid: a86181f5f13fc2742aaee2390a2988d7
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
