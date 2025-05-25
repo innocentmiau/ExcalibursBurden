@@ -7,7 +7,7 @@ public class KayDuelScene : MonoBehaviour
 
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private OptionsCanvasManager optionsCanvasManager;
-    [SerializeField] private NPCManager kayNPCManager;
+    [SerializeField] private NPCManager ectorNpcManager;
 
 
     private void Start()
@@ -17,7 +17,7 @@ public class KayDuelScene : MonoBehaviour
 
     public void KayLost()
     {
-        TalkTo(kayNPCManager, 1008);
+        TalkTo(ectorNpcManager, 3);
     }
     
     public void TalkTo(NPCManager talkingNpc, int currentStep)

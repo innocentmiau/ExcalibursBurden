@@ -75,6 +75,7 @@ public class PlayerManager : MonoBehaviour
     public void SetTalkingNpcStep(int value) => _talkingNpcStep = value;
     private NPCManager _talkableNpc;
     private float _talkingDelay = 0f;
+    private House2Scene _house2Scene;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -100,6 +101,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (GameObject.Find("SceneManager").TryGetComponent(out House2Scene house2Scene))
                 {
+                    _house2Scene = house2Scene;
                     if (!house2Scene.AlreadyTalked) house2Scene.TalkingToEctor(_talkableNpc);
                 }
             }
@@ -208,6 +210,10 @@ public class PlayerManager : MonoBehaviour
             if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions)
                 && npcTrans.TryGetComponent(out NPCManager npcTransManager))
             {
+                if (SceneManager.GetActiveScene().name.Equals("House_2") && _house2Scene != null)
+                {
+                    if (_house2Scene.AlreadyTalked) return;
+                }
                 npcTransInteractions.ShowToInteract();
                 _talkableNpc = npcTransManager;
                 return;
@@ -231,6 +237,16 @@ public class PlayerManager : MonoBehaviour
             npcInteractions.HideToInteract();
             _talkableNpc = null;
             return;
+        }
+        if (other.CompareTag("Trigger") && other.gameObject.layer == 9 && other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+        {
+            Transform npcTrans = triggerCallNpc.GetNpcTransform();
+            if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions))
+            {
+                npcTransInteractions.HideToInteract();
+                _talkableNpc = null;
+                return;
+            }
         }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();
     }
