@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d0f2fb9b7ce15e640bddc3c3036ad3d2
+guid: 6e707afa719929a4285dbb5950718adc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4653790045820726669
-    second: Fade_Level_0
+      213: -6615808422250864444
+    second: Florest_Background_NMist_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fade_Level_0
+      name: Florest_Background_NMist_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 620
+        height: 360
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,30 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8da46cc365959040800000000000000
-      internalID: 4653790045820726669
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fade_Level_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 02d2279e744067b448e8583163a03f64
-      internalID: 204212229
+      spriteID: 4c023b1ca4def24a0800000000000000
+      internalID: -6615808422250864444
       vertices: []
       indices: 
       edges: []
@@ -147,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9c00e1659c9eac84a8c7fff14a3621bb
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -157,8 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Fade_Level_0: 4653790045820726669
-      Fade_Level_1: 204212229
+      Florest_Background_NMist_0: -6615808422250864444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
