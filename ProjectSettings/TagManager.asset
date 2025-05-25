@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - NPC
   - Trigger
+  - Skills
   layers:
   - Default
   - TransparentFX
@@ -53,6 +54,9 @@ TagManager:
     locked: 0
   - name: Actor
     uniqueID: 2327206385
+    locked: 0
+  - name: AboveActors
+    uniqueID: 133491955
     locked: 0
   m_RenderingLayers:
   - Default

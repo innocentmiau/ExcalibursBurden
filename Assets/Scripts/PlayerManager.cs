@@ -3,6 +3,7 @@ using System.Collections;
 using Characters;
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour
@@ -73,9 +74,11 @@ public class PlayerManager : MonoBehaviour
     private int _talkingNpcStep = 0;
     public void SetTalkingNpcStep(int value) => _talkingNpcStep = value;
     private NPCManager _talkableNpc;
+    private float _talkingDelay = 0f;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
+        _talkingDelay -= Time.deltaTime;
         if (!_canMove) return;
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         
@@ -88,10 +91,18 @@ public class PlayerManager : MonoBehaviour
             StartCoroutine(PlayerAttack());
         }
 
-        if (Input.GetKeyDown(KeyCode.E) && _talkableNpc != null)
+        if (Input.GetKeyDown(KeyCode.E) && _talkableNpc != null && _talkingDelay <= 0f)
         {
-            GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkTo(_talkableNpc, _talkingNpcStep);
+            _talkingDelay = 0.1f; // Delay so it doesn't spam GameObject finds every frame if player spams
+            //GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkTo(_talkableNpc, _talkingNpcStep);
             //GameObject.Find("Game0Manager").GetComponent<Game0Manager>().TalkToEctor(0);
+            if (SceneManager.GetActiveScene().name.Equals("House_2"))
+            {
+                if (GameObject.Find("SceneManager").TryGetComponent(out House2Scene house2Scene))
+                {
+                    if (!house2Scene.AlreadyTalked) house2Scene.TalkingToEctor(_talkableNpc);
+                }
+            }
         }
     }
 
@@ -132,7 +143,7 @@ public class PlayerManager : MonoBehaviour
         if (canvasManager != null) canvasManager.StartCooldownNormalAttack(_attackCooldown);
         _animator.SetBool("NormalAttack", true);
         yield return new WaitForSeconds(0.35f);
-        _swordManager.SetAttacking(5f);
+        _swordManager.SetAttacking(3f);
         _animator.SetBool("NormalAttack", false);
         yield return new WaitForSeconds(0.4f);
         _swordManager.StopAttacking();
@@ -190,6 +201,18 @@ public class PlayerManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.layer == 7) return;
+        if (other.CompareTag("Trigger") && other.gameObject.layer == 9 && other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+        {
+            Transform npcTrans = triggerCallNpc.GetNpcTransform();
+            if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions)
+                && npcTrans.TryGetComponent(out NPCManager npcTransManager))
+            {
+                npcTransInteractions.ShowToInteract();
+                _talkableNpc = npcTransManager;
+                return;
+            }
+        }
         if (other.CompareTag("NPC") 
             && other.TryGetComponent(out NPCInteractions npcInteractions) 
             && other.TryGetComponent(out NPCManager npcManager))

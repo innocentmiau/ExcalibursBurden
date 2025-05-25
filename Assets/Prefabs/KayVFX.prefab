@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 8024231038178842841}
   m_Layer: 9
   m_Name: KayVFX
-  m_TagString: Untagged
+  m_TagString: Skills
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

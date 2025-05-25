@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using System;
+using Managers;
 using TMPro;
 using UnityEngine;
 
@@ -13,12 +14,21 @@ namespace Characters
         private void Start()
         {
             pressInteractPanel.gameObject.SetActive(false);
-            _messagesManager = GameObject.Find("Managers").GetComponent<MessagesManager>();
+            try
+            {
+                _messagesManager = GameObject.Find("Managers").GetComponent<MessagesManager>();
+                if (_messagesManager != null) return;
+            }
+            catch (Exception e)
+            {
+                return;
+            }
         }
 
         public void ShowToInteract()
         {
             pressInteractPanel.gameObject.SetActive(true);
+            if (_messagesManager == null) return;
             string txt = _messagesManager.GetTextByID(7);
             txt = txt.Replace(" E ", " <color=white>E</color> ");
             pressInteractPanel.Find("Text").GetComponent<TMP_Text>().text = txt;

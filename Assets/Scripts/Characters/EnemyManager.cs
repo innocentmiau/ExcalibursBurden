@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Managers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -11,6 +12,7 @@ namespace Characters
 
         [Header("Movement Settings")]
         [SerializeField] private bool followPlayer = true;
+        [SerializeField] private bool lookAtPlayer = false;
         [SerializeField] private float moveSpeed = 2f;
         [SerializeField] private float detectionRange = 128f;
         [SerializeField] private bool canSeePlayer = false;
@@ -76,6 +78,11 @@ namespace Characters
         
         private void FixedUpdate()
         {
+            if (!followPlayer)
+            {
+                if (lookAtPlayer) LookTowardsPlayer();
+                return;
+            }
             float distanceToPlayer = Vector2.Distance(transform.position, _playerTransform.position);
             if (canSeePlayer && _playerTransform != null && _attackAnimeCoro == null && distanceToPlayer > attackRange)
             {
@@ -86,6 +93,12 @@ namespace Characters
                 isMoving = false;
                 _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
             }
+        }
+
+        private void LookTowardsPlayer()
+        {
+            float direction = _playerTransform.position.x > transform.position.x ? 1f : -1f;
+            transform.rotation = Quaternion.Euler(0f, direction > 0f ? 0f : 180f, 0f);
         }
         
         private void MoveTowardsPlayer()
@@ -155,12 +168,14 @@ namespace Characters
             if (_animator) _animator.SetBool("Attack", false);
             _attackAnimeCoro = null;
         }
-        
+
+        private List<GameObject> _spawnedSkills;
         private bool Cast()
         {
             if (AttackPrefab == null) return false;
             EnableAttackAnimation();
-            Instantiate(AttackPrefab, _playerTransform.transform.position, Quaternion.identity);
+            if (_spawnedSkills == null) _spawnedSkills = new List<GameObject>();
+            _spawnedSkills.Add(Instantiate(AttackPrefab, _playerTransform.transform.position, Quaternion.identity));
             return true;
         }
         
