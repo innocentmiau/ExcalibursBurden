@@ -3,7 +3,7 @@ using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class House2Scene : MonoBehaviour
+public class Florest2Scene : MonoBehaviour
 {
     
     
@@ -36,4 +36,5 @@ public class House2Scene : MonoBehaviour
         //if (option == 0) optionsCanvasManager.PlayEctorTalk0();
         optionsCanvasManager.StartConversation(talkingNpc, currentStep);
     }
+    
 }

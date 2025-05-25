@@ -76,6 +76,8 @@ public class PlayerManager : MonoBehaviour
     private NPCManager _talkableNpc;
     private float _talkingDelay = 0f;
     private House2Scene _house2Scene;
+    private Florest1Scene _florest1Scene;
+    private Florest2Scene _florest21Scene;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -103,6 +105,24 @@ public class PlayerManager : MonoBehaviour
                 {
                     _house2Scene = house2Scene;
                     if (!house2Scene.AlreadyTalked) house2Scene.TalkingToEctor(_talkableNpc);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Florest_1"))
+            {
+                if (GameObject.Find("SceneManager").TryGetComponent(out Florest1Scene florest1Scene))
+                {
+                    _florest1Scene = florest1Scene;
+                    if (!florest1Scene.AlreadyTalked) florest1Scene.TalkingToEctor(_talkableNpc);
+                }
+            }
+
+            if (SceneManager.GetActiveScene().name.Equals("Florest_2"))
+            {
+                if (GameObject.Find("SceneManager").TryGetComponent(out Florest2Scene florest21Scene))
+                {
+                    _florest21Scene = florest21Scene;
+                    if (!florest21Scene.AlreadyTalked) florest21Scene.TalkingToEctor(_talkableNpc);
                 }
             }
         }
@@ -138,9 +158,11 @@ public class PlayerManager : MonoBehaviour
             audioSource.PlayOneShot(slashClip, volume);
         }
     }
-    
+
+    private bool _isAttacking = false;
     private IEnumerator PlayerAttack()
     {
+        _isAttacking = true;
         _attackCooldown = attackCooldown;
         if (canvasManager != null) canvasManager.StartCooldownNormalAttack(_attackCooldown);
         _animator.SetBool("NormalAttack", true);
@@ -149,6 +171,7 @@ public class PlayerManager : MonoBehaviour
         _animator.SetBool("NormalAttack", false);
         yield return new WaitForSeconds(0.4f);
         _swordManager.StopAttacking();
+        _isAttacking = false;
     }
 
     private void FixedUpdate()
@@ -161,7 +184,9 @@ public class PlayerManager : MonoBehaviour
 
     private void Move()
     {
-        _rb.linearVelocity = new Vector2(_horizontalInput * moveSpeed, _rb.linearVelocity.y);
+        float xMovement = _horizontalInput * moveSpeed;
+        if (_isAttacking) xMovement /= 5f;
+        _rb.linearVelocity = new Vector2(xMovement, _rb.linearVelocity.y);
         if (_horizontalInput != 0) transform.rotation = _horizontalInput < 0 ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
     }
 
@@ -204,19 +229,34 @@ public class PlayerManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == 7) return;
-        if (other.CompareTag("Trigger") && other.gameObject.layer == 9 && other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+        if (other.CompareTag("Trigger") && other.gameObject.layer == 9)
         {
-            Transform npcTrans = triggerCallNpc.GetNpcTransform();
-            if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions)
-                && npcTrans.TryGetComponent(out NPCManager npcTransManager))
+            if (other.TryGetComponent(out WalkingBehindEffect walkingBehindEffect))
             {
-                if (SceneManager.GetActiveScene().name.Equals("House_2") && _house2Scene != null)
+                walkingBehindEffect.PlayerIsBehind();
+            }
+            if (other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+            {
+                Transform npcTrans = triggerCallNpc.GetNpcTransform();
+                if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions)
+                    && npcTrans.TryGetComponent(out NPCManager npcTransManager))
                 {
-                    if (_house2Scene.AlreadyTalked) return;
+                    if (SceneManager.GetActiveScene().name.Equals("House_2") && _house2Scene != null)
+                    {
+                        if (_house2Scene.AlreadyTalked) return;
+                    }
+                    if (SceneManager.GetActiveScene().name.Equals("Florest_1") && _florest1Scene != null)
+                    {
+                        if (_florest1Scene.AlreadyTalked) return;
+                    }
+                    if (SceneManager.GetActiveScene().name.Equals("Florest_2") && _florest1Scene != null)
+                    {
+                        if (_florest1Scene.AlreadyTalked) return;
+                    }
+                    npcTransInteractions.ShowToInteract();
+                    _talkableNpc = npcTransManager;
+                    return;
                 }
-                npcTransInteractions.ShowToInteract();
-                _talkableNpc = npcTransManager;
-                return;
             }
         }
         if (other.CompareTag("NPC") 
@@ -238,14 +278,21 @@ public class PlayerManager : MonoBehaviour
             _talkableNpc = null;
             return;
         }
-        if (other.CompareTag("Trigger") && other.gameObject.layer == 9 && other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+        if (other.CompareTag("Trigger") && other.gameObject.layer == 9)
         {
-            Transform npcTrans = triggerCallNpc.GetNpcTransform();
-            if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions))
+            if (other.TryGetComponent(out WalkingBehindEffect walkingBehindEffect))
             {
-                npcTransInteractions.HideToInteract();
-                _talkableNpc = null;
-                return;
+                walkingBehindEffect.PlayerIsNotBehind();
+            }
+            if (other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
+            {
+                Transform npcTrans = triggerCallNpc.GetNpcTransform();
+                if (npcTrans.TryGetComponent(out NPCInteractions npcTransInteractions))
+                {
+                    npcTransInteractions.HideToInteract();
+                    _talkableNpc = null;
+                    return;
+                }
             }
         }
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();

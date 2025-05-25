@@ -162,12 +162,22 @@ namespace Characters
 
         private IEnumerator AttackAnimation()
         {
-            yield return new WaitForSeconds(1.8f);
+            yield return new WaitForSeconds(AttackPrefab.GetComponent<LancelotSkill1>().GetTimeActivate - 0.2f);
             if (_animator) _animator.SetBool("Attack", true);
             yield return new WaitForSeconds(0.1f);
             if (_animator) _animator.SetBool("Attack", false);
             _attackAnimeCoro = null;
         }
+
+        private void OnDestroy()
+        {
+            if (_spawnedSkills == null) return;
+            foreach (GameObject skill in _spawnedSkills)
+            {
+                Destroy(skill);
+            }
+        }
+
 
         private List<GameObject> _spawnedSkills;
         private bool Cast()

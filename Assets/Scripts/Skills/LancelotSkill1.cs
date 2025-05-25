@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class LancelotSkill1 : MonoBehaviour
 {
 
+    public float GetTimeActivate => timeActivate;
     [SerializeField] private float timeActivate = 2f;
 
     private Image _fillBar;

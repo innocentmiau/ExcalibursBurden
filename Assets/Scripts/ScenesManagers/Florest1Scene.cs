@@ -3,23 +3,14 @@ using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class House2Scene : MonoBehaviour
+public class Florest1Scene : MonoBehaviour
 {
     
-    
-    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private OptionsCanvasManager optionsCanvasManager;
-
-    [SerializeField] private GameObject deleteCollider;
-    
-    private void Start()
-    {
-        playerManager.SetCanMove(true);
-    }
     
     public void HitNextSceneTrigger()
     {
-        SceneManager.LoadSceneAsync("Kay_Duel");
+        SceneManager.LoadSceneAsync("Florest_2");
     }
 
     private int _currentStep = 0;
@@ -28,7 +19,6 @@ public class House2Scene : MonoBehaviour
     {
         AlreadyTalked = true;
         TalkTo(talkingNpc, _currentStep);
-        Destroy(deleteCollider);
     }
     
     private void TalkTo(NPCManager talkingNpc, int currentStep)
@@ -36,4 +26,5 @@ public class House2Scene : MonoBehaviour
         //if (option == 0) optionsCanvasManager.PlayEctorTalk0();
         optionsCanvasManager.StartConversation(talkingNpc, currentStep);
     }
+    
 }
