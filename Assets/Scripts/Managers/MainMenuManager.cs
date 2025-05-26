@@ -23,6 +23,7 @@ namespace Managers
 
         private void Start()
         {
+            languagesDropdown.options.Clear();
             foreach (Languages language in Enum.GetValues(typeof(Languages)))
             {
                 string lanName = language.ToString();
@@ -36,18 +37,21 @@ namespace Managers
                 languagesDropdown.options.Add(new TMP_Dropdown.OptionData(string.Join(" ", texts), null, Color.white));
             }
 
-            languagesDropdown.value = 0;
-            languagesDropdown.RefreshShownValue();
-
+            int selectedLan = 0;
             try
             {
                 GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
                 volumeSlider.value = man.Volume;
+                selectedLan = man.SelectedLanguage;
             }
             catch (Exception e)
             {
                 volumeSlider.value = 1f;
             }
+
+            
+            languagesDropdown.value = selectedLan;
+            languagesDropdown.RefreshShownValue();
             
             optionsMenu.gameObject.SetActive(false);
 
@@ -123,7 +127,8 @@ namespace Managers
         {
             try
             {
-                MessagesManager man = GameObject.Find("Managers").GetComponent<MessagesManager>();
+                GameObject mana = GameObject.Find("Managers");
+                MessagesManager man = mana.GetComponent<MessagesManager>();
                 List<Languages> lan = Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList();
                 string languageName = lan[languagesDropdown.value].ToString().ToLower();
                 languageName = languageName.Replace(" ", "_");
@@ -132,6 +137,8 @@ namespace Managers
                 {
                     eachTxt.RefreshText();
                 }
+                GameManager gameManager = mana.GetComponent<GameManager>();
+                gameManager.UpdateSelectedLanguage(languagesDropdown.value);
             }
             catch (Exception e)
             {

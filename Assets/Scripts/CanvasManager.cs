@@ -6,18 +6,11 @@ using UnityEngine.UI;
 public class CanvasManager : MonoBehaviour
 {
 
-    [SerializeField] private GameObject optionsMenu;
     [SerializeField] private RectTransform normalAttackPanel;
 
     private void Start()
     {
         StartCoroutine(NormalAttackCooldown(0f));
-        optionsMenu.SetActive(false);
-    }
-
-    public void PressedEscOptions()
-    {
-        optionsMenu.SetActive(!optionsMenu.activeSelf);
     }
 
     public void StartCooldownNormalAttack(float cooldown)

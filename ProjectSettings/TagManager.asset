@@ -9,6 +9,7 @@ TagManager:
   - NPC
   - Trigger
   - Skills
+  - Music
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class House1Scene : MonoBehaviour
 {
-
     
     [SerializeField] private Transform canvas;
     [SerializeField] private PlayerManager playerManager;

@@ -28,6 +28,8 @@ namespace Managers
         private Data _data;
 
         private MessagesManager _messagesManager;
+        public int SelectedLanguage { get; private set; } = 0;
+        public void UpdateSelectedLanguage(int value) => SelectedLanguage = value;
         void Start()
         {
             DontDestroyOnLoad(gameObject);

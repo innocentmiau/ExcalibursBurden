@@ -78,7 +78,7 @@ public class PlayerManager : MonoBehaviour
     private House2Scene _house2Scene;
     private Florest1Scene _florest1Scene;
     private Florest2Scene _florest2Scene;
-    private CanvasManager _canvasManager;
+    private GlobalStuff _globalStuff;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -92,8 +92,13 @@ public class PlayerManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (_canvasManager == null) _canvasManager = GameObject.Find("MainCanvas").GetComponent<CanvasManager>();
-            _canvasManager.PressedEscOptions();
+            if (_globalStuff == null)
+            {
+                GameObject obj = GameObject.Find("SceneManager");
+                if (obj != null) _globalStuff = obj.GetComponent<GlobalStuff>();
+                if (_globalStuff == null) return;
+            }
+            _globalStuff.PressedEsc();
         }
         
         if (Input.GetKeyDown(KeyCode.B) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
