@@ -77,7 +77,8 @@ public class PlayerManager : MonoBehaviour
     private float _talkingDelay = 0f;
     private House2Scene _house2Scene;
     private Florest1Scene _florest1Scene;
-    private Florest2Scene _florest21Scene;
+    private Florest2Scene _florest2Scene;
+    private CanvasManager _canvasManager;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -89,7 +90,13 @@ public class PlayerManager : MonoBehaviour
         
         if (useAnimation && _animator != null) UpdateAnimations();
 
-        if (Input.GetMouseButtonDown(0) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (_canvasManager == null) _canvasManager = GameObject.Find("MainCanvas").GetComponent<CanvasManager>();
+            _canvasManager.PressedEscOptions();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.B) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
         {
             StartCoroutine(PlayerAttack());
         }
@@ -119,10 +126,10 @@ public class PlayerManager : MonoBehaviour
 
             if (SceneManager.GetActiveScene().name.Equals("Florest_2"))
             {
-                if (GameObject.Find("SceneManager").TryGetComponent(out Florest2Scene florest21Scene))
+                if (GameObject.Find("SceneManager").TryGetComponent(out Florest2Scene florest2Scene))
                 {
-                    _florest21Scene = florest21Scene;
-                    if (!florest21Scene.AlreadyTalked) florest21Scene.TalkingToEctor(_talkableNpc);
+                    _florest2Scene = florest2Scene;
+                    if (!florest2Scene.AlreadyTalked) florest2Scene.TalkingToEctor(_talkableNpc);
                 }
             }
         }
@@ -249,9 +256,9 @@ public class PlayerManager : MonoBehaviour
                     {
                         if (_florest1Scene.AlreadyTalked) return;
                     }
-                    if (SceneManager.GetActiveScene().name.Equals("Florest_2") && _florest1Scene != null)
+                    if (SceneManager.GetActiveScene().name.Equals("Florest_2") && _florest2Scene != null)
                     {
-                        if (_florest1Scene.AlreadyTalked) return;
+                        if (_florest2Scene.AlreadyTalked) return;
                     }
                     npcTransInteractions.ShowToInteract();
                     _talkableNpc = npcTransManager;

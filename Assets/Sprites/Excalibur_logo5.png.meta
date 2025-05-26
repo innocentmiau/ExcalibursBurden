@@ -1,0 +1,728 @@
+fileFormatVersion: 2
+guid: d9435cae94d04d74a836089e1c750df7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4713314558920342666
+    second: Excalibur_logo5_0
+  - first:
+      213: 5124641628188882847
+    second: Excalibur_logo5_1
+  - first:
+      213: -9096601623981761207
+    second: Excalibur_logo5_2
+  - first:
+      213: -1850558439669224928
+    second: Excalibur_logo5_3
+  - first:
+      213: 8795483453777109526
+    second: Excalibur_logo5_4
+  - first:
+      213: 6343799726164865245
+    second: Excalibur_logo5_5
+  - first:
+      213: 3164697154370268615
+    second: Excalibur_logo5_6
+  - first:
+      213: -4603362122908153401
+    second: Excalibur_logo5_7
+  - first:
+      213: -1713745057298023940
+    second: Excalibur_logo5_8
+  - first:
+      213: -724777085396495987
+    second: Excalibur_logo5_9
+  - first:
+      213: -4297794340845140345
+    second: Excalibur_logo5_10
+  - first:
+      213: -5618046136844225338
+    second: Excalibur_logo5_11
+  - first:
+      213: 1779391540257112439
+    second: Excalibur_logo5_12
+  - first:
+      213: 4338219733490730051
+    second: Excalibur_logo5_13
+  - first:
+      213: 5841909618432671388
+    second: Excalibur_logo5_14
+  - first:
+      213: -3929709914161838072
+    second: Excalibur_logo5_15
+  - first:
+      213: -6221124261419248615
+    second: Excalibur_logo5_16
+  - first:
+      213: -2238084817895521407
+    second: Excalibur_logo5_17
+  - first:
+      213: -3097189652100942921
+    second: Excalibur_logo5_18
+  - first:
+      213: -1123459426437925159
+    second: Excalibur_logo5_19
+  - first:
+      213: -7465569102821866491
+    second: Excalibur_logo5_20
+  - first:
+      213: 5735086672366566821
+    second: Excalibur_logo5_21
+  - first:
+      213: -7354242309378600038
+    second: Excalibur_logo5_22
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Excalibur_logo5_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 15
+        width: 449
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8cbf1f7e9e096140800000000000000
+      internalID: 4713314558920342666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_1
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 89
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f97b069c8626e1740800000000000000
+      internalID: 5124641628188882847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_2
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 89
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94d5353d40162c180800000000000000
+      internalID: -9096601623981761207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_3
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 89
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02a2a6f57ee7156e0800000000000000
+      internalID: -1850558439669224928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_4
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 89
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 612e53ac995df0a70800000000000000
+      internalID: 8795483453777109526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_5
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 89
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd0f6447d34b90850800000000000000
+      internalID: 6343799726164865245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_6
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 81
+        width: 20
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7cdedeb6b434beb20800000000000000
+      internalID: 3164697154370268615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_7
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 89
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c94293f9829d10c0800000000000000
+      internalID: -4603362122908153401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_8
+      rect:
+        serializedVersion: 2
+        x: 271
+        y: 89
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf97b2043fd8738e0800000000000000
+      internalID: -1713745057298023940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_9
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 89
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d815993b41311f5f0800000000000000
+      internalID: -724777085396495987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_10
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 89
+        width: 17
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 786cd3451da2b54c0800000000000000
+      internalID: -4297794340845140345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_11
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 89
+        width: 15
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c4f4a1edc0b802b0800000000000000
+      internalID: -5618046136844225338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_12
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 9
+        width: 17
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7714c51ad2ba1b810800000000000000
+      internalID: 1779391540257112439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_13
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 9
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3440e4cdcd3743c30800000000000000
+      internalID: 4338219733490730051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_14
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 9
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9efd90a8d1a21150800000000000000
+      internalID: 5841909618432671388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_15
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 9
+        width: 22
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8088d0057add679c0800000000000000
+      internalID: -3929709914161838072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_16
+      rect:
+        serializedVersion: 2
+        x: 335
+        y: 9
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9149a86f1702aa9a0800000000000000
+      internalID: -6221124261419248615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_17
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 9
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 183842c47b9b0f0e0800000000000000
+      internalID: -2238084817895521407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_18
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 9
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b3f188cb629405d0800000000000000
+      internalID: -3097189652100942921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_19
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 9
+        width: 16
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d67a9f9a9ba860f0800000000000000
+      internalID: -1123459426437925159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_20
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 9
+        width: 22
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 504cb2c8478f46890800000000000000
+      internalID: -7465569102821866491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_21
+      rect:
+        serializedVersion: 2
+        x: 420
+        y: 9
+        width: 14
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ad7c7651fe179f40800000000000000
+      internalID: 5735086672366566821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Excalibur_logo5_22
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 9
+        width: 24
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a931755859b70f990800000000000000
+      internalID: -7354242309378600038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Excalibur_logo5_0: 4713314558920342666
+      Excalibur_logo5_1: 5124641628188882847
+      Excalibur_logo5_10: -4297794340845140345
+      Excalibur_logo5_11: -5618046136844225338
+      Excalibur_logo5_12: 1779391540257112439
+      Excalibur_logo5_13: 4338219733490730051
+      Excalibur_logo5_14: 5841909618432671388
+      Excalibur_logo5_15: -3929709914161838072
+      Excalibur_logo5_16: -6221124261419248615
+      Excalibur_logo5_17: -2238084817895521407
+      Excalibur_logo5_18: -3097189652100942921
+      Excalibur_logo5_19: -1123459426437925159
+      Excalibur_logo5_2: -9096601623981761207
+      Excalibur_logo5_20: -7465569102821866491
+      Excalibur_logo5_21: 5735086672366566821
+      Excalibur_logo5_22: -7354242309378600038
+      Excalibur_logo5_3: -1850558439669224928
+      Excalibur_logo5_4: 8795483453777109526
+      Excalibur_logo5_5: 6343799726164865245
+      Excalibur_logo5_6: 3164697154370268615
+      Excalibur_logo5_7: -4603362122908153401
+      Excalibur_logo5_8: -1713745057298023940
+      Excalibur_logo5_9: -724777085396495987
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

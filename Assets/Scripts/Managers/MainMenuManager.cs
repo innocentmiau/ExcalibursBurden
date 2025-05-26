@@ -77,6 +77,11 @@ namespace Managers
             }
         }
 
+        public void ClickQuitButton()
+        {
+            Application.Quit();
+        }
+
         public void ClickCloseOptionsMenuButton()
         {
             optionsMenu.gameObject.SetActive(false);
