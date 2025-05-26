@@ -32,13 +32,20 @@ public class LancelotSkill1 : MonoBehaviour
         if (_skillTrigger.IsPlayerInTrigger() && _skillTrigger.GetPlayerObject() != null)
         {
             GameObject playerOBj = _skillTrigger.GetPlayerObject();
-            if (playerOBj.TryGetComponent(out HealthSystem healthSystem))
-            {
-                healthSystem.TakeDamage(5f);
-            }
             if (playerOBj.TryGetComponent(out PlayerManager playerManager))
             {
-                playerManager.TookDamage();
+                if (!playerManager.Defending)
+                {
+                    playerManager.TookDamage();
+                    if (playerOBj.TryGetComponent(out HealthSystem healthSystem))
+                    {
+                        healthSystem.TakeDamage(5f);
+                    }
+                }
+                else
+                {
+                    playerManager.TriggerShieldWorked();
+                }
             }
             // TOOK OUT DISTANCE CHECKER SINCE 
             /*

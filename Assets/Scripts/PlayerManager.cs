@@ -8,24 +8,25 @@ using Random = UnityEngine.Random;
 
 public class PlayerManager : MonoBehaviour
 {
-
     [SerializeField] private CanvasManager canvasManager;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip slashClip;
-    
-    [Header("Movement Parameters")]
-    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private AudioClip takeDamageClip;
+
+    [Header("Movement Parameters")] [SerializeField]
+    private float moveSpeed = 8f;
+
     [SerializeField] private float jumpForce = 16f;
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
 
-    [Header("Ground Check")]
-    [SerializeField] private Transform groundCheck;
+    [Header("Ground Check")] [SerializeField]
+    private Transform groundCheck;
+
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private LayerMask groundLayer;
 
-    [Header("Animation")]
-    [SerializeField] private bool useAnimation = false;
+    [Header("Animation")] [SerializeField] private bool useAnimation = false;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -37,14 +38,16 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private Character characterData;
     [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float defenseCooldown = 5f;
     private SwordManager _swordManager;
     private float _attackCooldown = 0f;
-    
+    private float _defenseCooldown = 0f;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _sr = GetComponent<SpriteRenderer>();
-        
+
         if (useAnimation) _animator = GetComponent<Animator>();
 
         gameObject.tag = characterData.tag;
@@ -55,6 +58,7 @@ public class PlayerManager : MonoBehaviour
     }
 
     private GameManager _gameManager;
+
     private void Start()
     {
         try
@@ -70,7 +74,7 @@ public class PlayerManager : MonoBehaviour
 
     private bool _canMove = false;
     public void SetCanMove(bool value) => _canMove = value;
-    
+
     private int _talkingNpcStep = 0;
     public void SetTalkingNpcStep(int value) => _talkingNpcStep = value;
     private NPCManager _talkableNpc;
@@ -80,9 +84,11 @@ public class PlayerManager : MonoBehaviour
     private Florest2Scene _florest2Scene;
     private GlobalStuff _globalStuff;
     private bool _sprint = false;
+
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
+        _defenseCooldown -= Time.deltaTime;
         _talkingDelay -= Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -93,17 +99,28 @@ public class PlayerManager : MonoBehaviour
                 if (obj != null) _globalStuff = obj.GetComponent<GlobalStuff>();
                 if (_globalStuff == null) return;
             }
+
             _globalStuff.PressedEsc();
         }
 
         if (!_canMove) return;
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _sprint = Input.GetKey(KeyCode.LeftShift);
-        
+
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
-        
+
         if (useAnimation && _animator != null) UpdateAnimations();
-        
+
+        if (_isAttacking || _defenseCooldown > 0f)
+        {
+            Defending = false;
+        }
+        else
+        {
+            Defending = Input.GetKey(KeyCode.L);
+            _animator.SetBool("Defense", Defending);
+        }
+
         if (Input.GetKeyDown(KeyCode.B) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
         {
             StartCoroutine(PlayerAttack());
@@ -143,7 +160,18 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void TriggerShieldWorked()
+    {
+        _defenseCooldown = defenseCooldown;
+        if (canvasManager != null) canvasManager.StartCooldownDefense(_defenseCooldown);
+        Defending = false;
+        _animator.SetBool("Defense", Defending);
+    }
+    
+    public bool Defending { get; private set; } = false;
+
     private Coroutine _tookDamageCoro;
+
     public void TookDamage()
     {
         if (_tookDamageCoro != null) StopCoroutine(_tookDamageCoro);
@@ -152,6 +180,7 @@ public class PlayerManager : MonoBehaviour
 
     private IEnumerator TookDamageAnimation()
     {
+        PlayTakeDamageSound();
         Color c = _sr.color;
         c.a = 0.2f;
         _sr.color = c;
@@ -174,7 +203,17 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void PlayTakeDamageSound()
+    {
+        if (audioSource != null && takeDamageClip != null)
+        {
+            float volume = _gameManager != null ? _gameManager.Volume : 1f;
+            audioSource.PlayOneShot(takeDamageClip, volume);
+        }
+    }
+
     private bool _isAttacking = false;
+
     private IEnumerator PlayerAttack()
     {
         _isAttacking = true;
@@ -204,7 +243,8 @@ public class PlayerManager : MonoBehaviour
         if (_isAttacking) xMovement /= 5f;
         if (!_canMove) xMovement = 0f;
         _rb.linearVelocity = new Vector2(xMovement, _rb.linearVelocity.y);
-        if (_horizontalInput != 0) transform.rotation = _horizontalInput < 0 ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
+        if (_horizontalInput != 0)
+            transform.rotation = _horizontalInput < 0 ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
     }
 
     private void Jump()
@@ -252,6 +292,7 @@ public class PlayerManager : MonoBehaviour
             {
                 walkingBehindEffect.PlayerIsBehind();
             }
+
             if (other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
             {
                 Transform npcTrans = triggerCallNpc.GetNpcTransform();
@@ -262,28 +303,33 @@ public class PlayerManager : MonoBehaviour
                     {
                         if (_house2Scene.AlreadyTalked) return;
                     }
+
                     if (SceneManager.GetActiveScene().name.Equals("Florest_1") && _florest1Scene != null)
                     {
                         if (_florest1Scene.AlreadyTalked) return;
                     }
+
                     if (SceneManager.GetActiveScene().name.Equals("Florest_2") && _florest2Scene != null)
                     {
                         if (_florest2Scene.AlreadyTalked) return;
                     }
+
                     npcTransInteractions.ShowToInteract();
                     _talkableNpc = npcTransManager;
                     return;
                 }
             }
         }
-        if (other.CompareTag("NPC") 
-            && other.TryGetComponent(out NPCInteractions npcInteractions) 
+
+        if (other.CompareTag("NPC")
+            && other.TryGetComponent(out NPCInteractions npcInteractions)
             && other.TryGetComponent(out NPCManager npcManager))
         {
             npcInteractions.ShowToInteract();
             _talkableNpc = npcManager;
             return;
         }
+
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerEnteredTrigger(gameObject);
     }
 
@@ -295,12 +341,14 @@ public class PlayerManager : MonoBehaviour
             _talkableNpc = null;
             return;
         }
+
         if (other.CompareTag("Trigger") && other.gameObject.layer == 9)
         {
             if (other.TryGetComponent(out WalkingBehindEffect walkingBehindEffect))
             {
                 walkingBehindEffect.PlayerIsNotBehind();
             }
+
             if (other.TryGetComponent(out TriggerCallNPC triggerCallNpc))
             {
                 Transform npcTrans = triggerCallNpc.GetNpcTransform();
@@ -312,6 +360,7 @@ public class PlayerManager : MonoBehaviour
                 }
             }
         }
+
         if (other.TryGetComponent(out SkillTrigger skillTrigger)) skillTrigger.PlayerLeftTrigger();
     }
 

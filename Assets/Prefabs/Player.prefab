@@ -149,6 +149,7 @@ MonoBehaviour:
   canvasManager: {fileID: 0}
   audioSource: {fileID: 3290300803941933730}
   slashClip: {fileID: 8300000, guid: bd8d661de677b5545b99907bdb324850, type: 3}
+  takeDamageClip: {fileID: 8300000, guid: d42c8123e9eae1741b94445ce196dc04, type: 3}
   moveSpeed: 50
   jumpForce: 100
   fallMultiplier: 20

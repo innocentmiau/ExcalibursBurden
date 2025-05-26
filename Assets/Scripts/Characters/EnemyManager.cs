@@ -26,6 +26,7 @@ namespace Characters
         [SerializeField] private float AttackSpeed = 2f;
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip slashClip;
+        [SerializeField] private AudioClip takeDamageClip;
         
         [SerializeField] private Transform _playerTransform;
         private Rigidbody2D _rb;
@@ -135,6 +136,15 @@ namespace Characters
             }
         }
 
+        public void PlayTakeDamageSound()
+        {
+            if (audioSource != null && takeDamageClip != null)
+            {
+                float volume = _gameManager != null ? _gameManager.Volume : 1f;
+                audioSource.PlayOneShot(takeDamageClip, volume);
+            }
+        }
+
         private Coroutine _tookDamageCoro;
         public void TookDamage()
         {
@@ -144,6 +154,7 @@ namespace Characters
 
         private IEnumerator TookDamageAnimation()
         {
+            PlayTakeDamageSound();
             Color c = _sr.color;
             c.a = 0.2f;
             _sr.color = c;

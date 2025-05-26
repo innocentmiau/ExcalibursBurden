@@ -1524,6 +1524,7 @@ MonoBehaviour:
   AttackSpeed: 2
   audioSource: {fileID: 0}
   slashClip: {fileID: 0}
+  takeDamageClip: {fileID: 0}
   _playerTransform: {fileID: 758498074}
 --- !u!114 &441951255
 MonoBehaviour:
@@ -6515,7 +6516,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1063345883}
         m_TargetAssemblyTypeName: Managers.GlobalStuff, Assembly-CSharp
         m_MethodName: ClickCloseOptionsMenuButton
         m_Mode: 1
