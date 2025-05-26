@@ -20,6 +20,10 @@ namespace Managers
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private TMP_Text volumeTMP;
         [SerializeField] private AudioSource backgroundSource;
+        [SerializeField] private Toggle toggleButton;
+        [SerializeField] private Image toggleBackground;
+        [SerializeField] private Color toggleDisabled;
+        [SerializeField] private Color toggleEnabled;
 
         private void Start()
         {
@@ -144,6 +148,14 @@ namespace Managers
             {
                 Debug.Log(e);
             }
+        }
+
+        public void UpdateToggleInstantText()
+        {
+            Color c = toggleButton.isOn ? toggleEnabled : toggleDisabled;
+            toggleBackground.color = c;
+            GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
+            man.UpdateInstantLoadText(toggleButton.isOn);
         }
         
     }

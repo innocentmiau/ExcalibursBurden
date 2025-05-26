@@ -13,6 +13,7 @@
         CLOSE_DIALOGUE = 8,
         LANGUAGE = 9,
         AUDIO_VOLUME = 10,
+        INSTANTLY_LOAD_TEXT = 11,
         MERLIN_TALK_0 = 1000,
         MERLIN_TALK_1 = 1001,
         MERLIN_TALK_2 = 1002,

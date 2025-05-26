@@ -25,17 +25,21 @@ namespace Managers
         }
 
         private bool _canPickOption = false;
+        private bool _canSkip = false;
         private bool _skipNextFrame = false;
         private bool _clickedPreviously = false;
         private Coroutine _deleteClickCo;
         private void Update()
         {
-            if (!_canPickOption) return;
-            if (Input.GetKeyDown(KeyCode.Alpha1)) ClickButton(1);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) ClickButton(2);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) ClickButton(3);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
-            if (Input.GetMouseButtonDown(0) && _skipNextFrame == false)
+            if (_canPickOption)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1)) ClickButton(1);
+                if (Input.GetKeyDown(KeyCode.Alpha2)) ClickButton(2);
+                if (Input.GetKeyDown(KeyCode.Alpha3)) ClickButton(3);
+                if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
+            }
+            
+            if (Input.GetMouseButtonDown(0) && _skipNextFrame == false && _canSkip)
             {
                 if (_clickedPreviously == false)
                 {
@@ -126,20 +130,26 @@ namespace Managers
 
         private IEnumerator UpdateOptions(int id, int npcTalk, Dictionary<int, int> answers)
         {
+            _canPickOption = false;
             TMP_Text otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
             string text = _messagesManager.GetTextByID(npcTalk);
-            for (int i = 0; i < text.Length; i++)
+            if (!_gameManager.InstantLoadText)
             {
-                string newText = text.Substring(0,i) + "<color=#00000000>" + text.Substring(i);
-                otherTMP.text = newText;
-                // Maybe later add delay between words to look more real??? perhaps???
-                //if (text[i].Equals(' ')) yield return new WaitForSeconds(0.1f);
-                if (_skipNextFrame)
+                _canSkip = true;
+                for (int i = 0; i < text.Length; i++)
                 {
-                    _skipNextFrame = false;
-                    break;
+                    string newText = text.Substring(0,i) + "<color=#00000000>" + text.Substring(i);
+                    otherTMP.text = newText;
+                    // Maybe later add delay between words to look more real??? perhaps???
+                    //if (text[i].Equals(' ')) yield return new WaitForSeconds(0.1f);
+                    if (_skipNextFrame)
+                    {
+                        _skipNextFrame = false;
+                        break;
+                    }
+                    yield return new WaitForSeconds(0.05f);
                 }
-                yield return new WaitForSeconds(0.05f);
+                _canSkip = false;
             }
             otherTMP.text = text;
             if (answers == null)

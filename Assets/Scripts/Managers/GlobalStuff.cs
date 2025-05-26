@@ -18,6 +18,10 @@ namespace Managers
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private TMP_Text volumeTMP;
         [SerializeField] private AudioSource backgroundSource;
+        [SerializeField] private Toggle toggleButton;
+        [SerializeField] private Image toggleBackground;
+        [SerializeField] private Color toggleDisabled;
+        [SerializeField] private Color toggleEnabled;
 
         private void Start()
         {
@@ -61,20 +65,23 @@ namespace Managers
             }
             
             int selectedLan = 0;
+            bool instantText = false;
             try
             {
                 GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
                 volumeSlider.value = man.Volume;
                 selectedLan = man.SelectedLanguage;
+                instantText = man.InstantLoadText;
             }
             catch (Exception e)
             {
                 volumeSlider.value = 1f;
             }
-
             
             languagesDropdown.value = selectedLan;
             languagesDropdown.RefreshShownValue();
+
+            toggleButton.isOn = instantText;
         }
 
         public void ClickCloseOptionsMenuButton()
@@ -130,6 +137,14 @@ namespace Managers
             {
                 Debug.Log(e);
             }
+        }
+
+        public void UpdateToggleInstantText()
+        {
+            Color c = toggleButton.isOn ? toggleEnabled : toggleDisabled;
+            toggleBackground.color = c;
+            GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
+            man.UpdateInstantLoadText(toggleButton.isOn);
         }
         
     }

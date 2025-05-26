@@ -2807,7 +2807,7 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 5
+  m_fontSizeMin: 3
   m_fontSizeMax: 8
   m_fontStyle: 0
   m_HorizontalAlignment: 32
@@ -3447,6 +3447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678d1af0603c00d4698b48c8e1fd2d5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerManager: {fileID: 0}
   optionsCanvasManager: {fileID: 182474995}
 --- !u!1 &731571963
 GameObject:

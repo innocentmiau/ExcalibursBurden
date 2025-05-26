@@ -30,6 +30,8 @@ namespace Managers
         private MessagesManager _messagesManager;
         public int SelectedLanguage { get; private set; } = 0;
         public void UpdateSelectedLanguage(int value) => SelectedLanguage = value;
+        public bool InstantLoadText { get; private set; } = false;
+        public void UpdateInstantLoadText(bool value) => InstantLoadText = value;
         void Start()
         {
             DontDestroyOnLoad(gameObject);
