@@ -859,6 +859,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 812080043175876259, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1342574985072743232, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
       propertyPath: defensePanel
       value: 
@@ -918,10 +922,6 @@ PrefabInstance:
     - target: {fileID: 2615459295783946329, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
       propertyPath: m_Name
       value: MainCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 3161479410181078303, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_Spacing.x
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6220556613638518850, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
       propertyPath: m_Pivot.x
@@ -1003,26 +1003,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6780101576299011225, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -3.5389
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780101576299011225, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780101576299011225, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0.7694502
-      objectReference: {fileID: 0}
-    - target: {fileID: 6780101576299011225, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.64330006
-      objectReference: {fileID: 0}
-    - target: {fileID: 9050078569759012668, guid: db53187f3f2de314f8e4c84ae5478d22, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 33ddb9a62dd81b34a89e135c646e1f8e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

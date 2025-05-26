@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using Important;
@@ -88,6 +89,39 @@ namespace Managers
             // load all data from resources here in the future
             // then load main menu scene in async also.
             if (SceneManager.GetActiveScene().name.Equals("Loading")) ChangeScene();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
+            {
+                HandleAdmin();
+            }
+        }
+
+        private void HandleAdmin() 
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                int current = SceneManager.GetActiveScene().buildIndex;
+                Debug.Log("Current scene: " + current);
+                if (current > 1)
+                {
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex - 1);
+                }
+                // behind scene
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                // next scene
+                int current = SceneManager.GetActiveScene().buildIndex;
+                Debug.Log("Current scene: " + current);
+                if (current < 9)
+                {
+                    SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+                }
+            }
         }
 
         private void ChangeScene()
