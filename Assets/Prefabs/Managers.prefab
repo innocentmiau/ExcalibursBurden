@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b4efc88e66c43c78278ab400d259286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedLanguage: 0
 --- !u!114 &450321387083421109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,3 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b76ef154eb2b8409e4517a7ec7e422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canvas: {fileID: 0}
+  applyOnStart: 1
+  useFullscreen: 1
+  showDebugInfo: 1

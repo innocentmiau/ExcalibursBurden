@@ -39,7 +39,7 @@ namespace Managers
                 if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
             }
             
-            if (Input.GetMouseButtonDown(0) && _skipNextFrame == false && _canSkip)
+            if (Input.GetKeyDown(KeyCode.Space) && _skipNextFrame == false && _canSkip)
             {
                 if (_clickedPreviously == false)
                 {
