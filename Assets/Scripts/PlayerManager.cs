@@ -79,6 +79,7 @@ public class PlayerManager : MonoBehaviour
     private Florest1Scene _florest1Scene;
     private Florest2Scene _florest2Scene;
     private GlobalStuff _globalStuff;
+    private bool _sprint = false;
     private void Update()
     {
         _attackCooldown -= Time.deltaTime;
@@ -94,9 +95,10 @@ public class PlayerManager : MonoBehaviour
             }
             _globalStuff.PressedEsc();
         }
-        
+
         if (!_canMove) return;
         _horizontalInput = Input.GetAxisRaw("Horizontal");
+        _sprint = Input.GetKey(KeyCode.LeftShift);
         
         if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
         
@@ -198,7 +200,9 @@ public class PlayerManager : MonoBehaviour
     private void Move()
     {
         float xMovement = _horizontalInput * moveSpeed;
+        if (_sprint) xMovement *= 3;
         if (_isAttacking) xMovement /= 5f;
+        if (!_canMove) xMovement = 0f;
         _rb.linearVelocity = new Vector2(xMovement, _rb.linearVelocity.y);
         if (_horizontalInput != 0) transform.rotation = _horizontalInput < 0 ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
     }

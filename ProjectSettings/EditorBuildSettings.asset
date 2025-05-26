@@ -30,6 +30,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Florest_2.unity
     guid: a86181f5f13fc2742aaee2390a2988d7
   - enabled: 1
+    path: Assets/Scenes/Florest_3_Excalibur.unity
+    guid: be5f722cabcd5824585a1f8077f81957
+  - enabled: 1
+    path: Assets/Scenes/Merlin_Talk.unity
+    guid: a5fa3da103925bc4aba482e7bf6b561d
+  - enabled: 1
     path: Assets/Scenes/Kay_Duel2.unity
     guid: 9d5d150d41196b54498eb17fe0f4ce00
   m_configObjects:

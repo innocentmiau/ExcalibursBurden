@@ -40,10 +40,12 @@ namespace Managers
             new Resolution16x9(5120, 2880, "5K"),
             new Resolution16x9(7680, 4320, "8K UHD")
         };
+        public Resolution16x9[] GetResolutions() => resolutions16x9;
 
         [SerializeField] private Transform canvas;
         [Header("Results")]
         private Resolution16x9 bestResolution;
+        public Resolution16x9 GetBestResolution() => bestResolution;
         [SerializeField] private Resolution nativeResolution;
         
         public bool IsGamePaused { get; private set; }
@@ -56,10 +58,18 @@ namespace Managers
             IsGamePaused = false;
         }
         
+        public Resolution16x9 SelectedResolution { get; private set; }
+        public void UpdateResolution(Resolution16x9 resolution16X9)
+        {
+            SelectedResolution = resolution16X9;
+            Screen.SetResolution(resolution16X9.width, resolution16X9.height, true);
+            Debug.Log($"Applied Resolution: {resolution16X9.name} ({resolution16X9.width}x{resolution16X9.height})");
+        }
         public float Volume { get; private set; }
         public void UpdateVolume(float value) => Volume = value;
         
         private Data _data;
+        private bool _isResolutionDone = false;
 
         private MessagesManager _messagesManager;
         public int SelectedLanguage { get; private set; } = 0;
@@ -88,85 +98,17 @@ namespace Managers
         private IEnumerator LoadMainMenuAsync()
         {
             yield return new WaitForSeconds(0.5f);
+            while (!_isResolutionDone)
+            {
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(0.5f);
             AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("MainMenu");
             while (!asyncLoad.isDone)
             {
                 yield return null;
             }
         }
-
-        public void PlayStartMoment()
-        {
-            StartCoroutine(StartAnimation());
-        }
-
-        public void ShowTipBox(string text)
-        {
-            Transform tbt = canvas.Find("TipBox");
-            tbt.gameObject.SetActive(true);
-            CanvasGroup cg = tbt.GetComponent<CanvasGroup>();
-            TMP_Text tmp = tbt.Find("Text").GetComponent<TMP_Text>();
-            tmp.text = text;
-            if (_tipBoxDisappear != null) StopCoroutine(_tipBoxDisappear);
-            _tipBoxDisappear = StartCoroutine(DisappearingTipBox(cg, 8f, 5f));
-        }
-
-        private Coroutine _tipBoxDisappear;
-
-        private IEnumerator DisappearingTipBox(CanvasGroup canvasG, float stay, float fadeout)
-        {
-            yield return new WaitForSeconds(stay);
-            float elapsed = 0f;
-            while (elapsed < fadeout)
-            {
-                yield return null;
-                elapsed += Time.deltaTime;
-                canvasG.alpha = Mathf.Lerp(1f, 0f, (elapsed / fadeout));
-            }
-            canvasG.alpha = 0f;
-            canvasG.gameObject.SetActive(false);
-        }
-
-        // colorful names for npcs? maybe?
-        private string FormatTextWithNpcColors(string text)
-        {
-            if (text.Contains("Ector"))
-            {
-                text = text.Replace("Ector", "<color=#78db53>Ector</color>");
-            }
-            return text;
-        }
-        
-        private IEnumerator StartAnimation()
-        {
-            canvas = GameObject.Find("Canvas").transform;
-            Transform allBlack = canvas.Find("AllBlack");
-            CanvasGroup cg = allBlack.GetComponent<CanvasGroup>();
-            allBlack.gameObject.SetActive(true);
-            cg.alpha = 1f;
-            TMP_Text tmp = allBlack.Find("Text").GetComponent<TMP_Text>();
-            string text = _messagesManager.GetTextByID(1000);
-            for (int i = 0; i < text.Length; i++)
-            {
-                string startText = FormatTextWithNpcColors(text.Substring(0, i));
-                string newText = startText + "<color=#00000000>" + text.Substring(i);
-                tmp.text = newText;
-                yield return new WaitForSeconds(2f/text.Length);
-            }
-            tmp.text = FormatTextWithNpcColors(text);
-            yield return new WaitForSeconds(1f);
-
-            float elapsed = 0;
-            while (elapsed < 1.5f)
-            {
-                cg.alpha = Mathf.Lerp(1f, 0f, (elapsed / 1.5f));
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-            allBlack.gameObject.SetActive(false);
-            ShowTipBox(_messagesManager.GetTextByID(1001));
-        }
-    
         private Resolution16x9 FindBest16X9Resolution()
         {
             nativeResolution = Screen.currentResolution;
@@ -186,10 +128,7 @@ namespace Managers
             
                 float score = pixelDiff * 0.7f + (widthDiff + heightDiff) * 0.3f;
             
-                if (res.width > nativeResolution.width || res.height > nativeResolution.height)
-                {
-                    score *= 1.5f; // Penalty for exceeding native resolution
-                }
+                if (res.width > nativeResolution.width || res.height > nativeResolution.height) score *= 1.5f;
             
                 Debug.Log($"{res.name} ({res.width}x{res.height}): Score = {score:F0}");
             
@@ -210,12 +149,12 @@ namespace Managers
         {
             Resolution16x9 best = FindBest16X9Resolution();
             ApplyResolution(best);
+            _isResolutionDone = true;
         }
     
         private void ApplyResolution(Resolution16x9 resolution)
         {
-            Screen.SetResolution(resolution.width, resolution.height, true);
-            Debug.Log($"Applied Resolution: {resolution.name} ({resolution.width}x{resolution.height})");
+            UpdateResolution(resolution);
         }
     }
     

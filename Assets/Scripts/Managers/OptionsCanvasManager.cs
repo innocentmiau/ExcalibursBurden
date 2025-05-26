@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using Characters;
+using ScenesManagers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Managers
@@ -72,6 +74,22 @@ namespace Managers
             {
                 transform.gameObject.SetActive(false);
                 _playerManager.SetCanMove(true);
+                if (SceneManager.GetActiveScene().name.Equals("Florest_3_Excalibur"))
+                {
+                    if (!transform.name.Contains("Merlin"))
+                    {
+                        GameObject.Find("SceneManager").GetComponent<Florest3Scene>().BeginMerlin();
+                    }
+                    else
+                    {
+                        GameObject.Find("SceneManager").GetComponent<Florest3Scene>().EndMerlin();
+                    }
+                }
+
+                if (SceneManager.GetActiveScene().name.Equals("Merlin_Talk"))
+                {
+                    GameObject.Find("SceneManager").GetComponent<MerlinTalkScene>().EndScene();
+                }
                 return;
             }
             transform.gameObject.SetActive(true);
@@ -79,12 +97,21 @@ namespace Managers
             ClearCurrentOptions();
             StartCoroutine(UpdateOptions(id, npcTalk, answers));
         }
-        
+
+        private bool _hasCalledMerlin = false;
         private void ClickButton(int option)
         {
+            if (option > _clickingOptions.Count) return;
             if (_latestNpcManager == null) return;
             Debug.Log("Clicked " + option);
             _canPickOption = false;
+            
+            if (SceneManager.GetActiveScene().name.Equals("Merlin_Talk") && option == 1 && !_hasCalledMerlin)
+            {
+                _hasCalledMerlin = true;
+                GameObject.Find("Merlin").GetComponent<MerlinExtras>().Appear();
+                // merlinExtras.Appear();
+            }
             
             StartConversation(_latestNpcManager, _clickingOptions[option-1].ClickedOption);
             /*

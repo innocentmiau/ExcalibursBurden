@@ -12,8 +12,7 @@ namespace Characters
         [SerializeField] private string npcTalksFileName;
         [SerializeField] private Character npcObject;
         private HealthSystem _healthSystem;
-
-
+        
         private NPCData _npcData;
         
         private void Start()
@@ -62,6 +61,7 @@ namespace Characters
             {
                 return (-2, -2, null);
             }
+            Debug.Log("talk id trying: " + talkID);
             string allData = _npcData.talks[talkID];
             string[] datas = allData.Split(" ");
             int mainTalk = int.Parse(datas[1]);

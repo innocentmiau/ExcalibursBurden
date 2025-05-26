@@ -14,6 +14,11 @@
         LANGUAGE = 9,
         AUDIO_VOLUME = 10,
         INSTANTLY_LOAD_TEXT = 11,
+        GAME_RESOLUTION = 12,
+        // 13 Hold E to complete!
+        HOLD_TO_COMPLETE = 13,
+        // "14 Press E to call Merlin!",
+        PRESS_TO_CALL_MERLIN = 14,
         MERLIN_TALK_0 = 1000,
         MERLIN_TALK_1 = 1001,
         MERLIN_TALK_2 = 1002,

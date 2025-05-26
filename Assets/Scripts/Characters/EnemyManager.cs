@@ -87,11 +87,13 @@ namespace Characters
             if (canSeePlayer && _playerTransform != null && _attackAnimeCoro == null && distanceToPlayer > attackRange)
             {
                 MoveTowardsPlayer();
+                _animator.SetFloat("Speed", 1f);
             }
             else
             {
                 isMoving = false;
                 _rb.linearVelocity = new Vector2(0, _rb.linearVelocity.y);
+                _animator.SetFloat("Speed", 0f);
             }
         }
 

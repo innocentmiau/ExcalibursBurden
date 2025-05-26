@@ -19,7 +19,7 @@ public class Florest2Scene : MonoBehaviour
     
     public void HitNextSceneTrigger()
     {
-        SceneManager.LoadSceneAsync("Kay_Duel");
+        SceneManager.LoadSceneAsync("Florest_3_Excalibur");
     }
 
     private int _currentStep = 0;

@@ -24,6 +24,7 @@ namespace Managers
         [SerializeField] private Image toggleBackground;
         [SerializeField] private Color toggleDisabled;
         [SerializeField] private Color toggleEnabled;
+        [SerializeField] private TMP_Dropdown resolutionsDropdown;
 
         private void Start()
         {
@@ -40,20 +41,36 @@ namespace Managers
 
                 languagesDropdown.options.Add(new TMP_Dropdown.OptionData(string.Join(" ", texts), null, Color.white));
             }
+            
+            resolutionsDropdown.options.Clear();
 
             int selectedLan = 0;
+            int selectedResolution = 0;
             try
             {
                 GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
                 volumeSlider.value = man.Volume;
                 selectedLan = man.SelectedLanguage;
+                GameManager.Resolution16x9[] resolutions = man.GetResolutions();
+                foreach (GameManager.Resolution16x9 resolution in resolutions)
+                {
+                    string text = $"{resolution.width} x {resolution.height}";
+                    resolutionsDropdown.options.Add(new TMP_Dropdown.OptionData(text, null, Color.white));
+                }
+                int count = 0;
+                foreach (GameManager.Resolution16x9 resolution in resolutions)
+                {
+                    if (resolution.name.Equals(man.SelectedResolution.name)) break;
+                    count++;
+                }
+                selectedResolution = count;
             }
             catch (Exception e)
             {
                 volumeSlider.value = 1f;
             }
 
-            
+            resolutionsDropdown.value = selectedResolution;
             languagesDropdown.value = selectedLan;
             languagesDropdown.RefreshShownValue();
             
@@ -156,6 +173,21 @@ namespace Managers
             toggleBackground.color = c;
             GameManager man = GameObject.Find("Managers").GetComponent<GameManager>();
             man.UpdateInstantLoadText(toggleButton.isOn);
+        }
+
+        public void UpdateResolutionsUpdate()
+        {
+            try
+            {
+                GameObject mana = GameObject.Find("Managers");
+                GameManager gameManager = mana.GetComponent<GameManager>();
+                GameManager.Resolution16x9[] resolutions = gameManager.GetResolutions();
+                gameManager.UpdateResolution(resolutions[resolutionsDropdown.value]);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+            }
         }
         
     }

@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class HealthSystem : MonoBehaviour
         if (_healthy.TakeDamage(value))
         {
             if (gameObject.name.Equals("Kay")) FindFirstObjectByType<KayDuelScene>().KayLost();
+            if (gameObject.CompareTag("Player")) SceneManager.LoadSceneAsync("MainMenu");
             Destroy(gameObject);
             return;
         }
