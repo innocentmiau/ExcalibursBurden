@@ -83,12 +83,6 @@ public class PlayerManager : MonoBehaviour
     {
         _attackCooldown -= Time.deltaTime;
         _talkingDelay -= Time.deltaTime;
-        if (!_canMove) return;
-        _horizontalInput = Input.GetAxisRaw("Horizontal");
-        
-        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
-        
-        if (useAnimation && _animator != null) UpdateAnimations();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -100,6 +94,13 @@ public class PlayerManager : MonoBehaviour
             }
             _globalStuff.PressedEsc();
         }
+        
+        if (!_canMove) return;
+        _horizontalInput = Input.GetAxisRaw("Horizontal");
+        
+        if ((Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space)) && _isGrounded) _jumpPressed = true;
+        
+        if (useAnimation && _animator != null) UpdateAnimations();
         
         if (Input.GetKeyDown(KeyCode.B) && !_swordManager.IsAttacking && _attackCooldown <= 0f)
         {

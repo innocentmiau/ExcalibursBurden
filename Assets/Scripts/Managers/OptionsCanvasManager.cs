@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using TMPro;
@@ -24,6 +25,9 @@ namespace Managers
         }
 
         private bool _canPickOption = false;
+        private bool _skipNextFrame = false;
+        private bool _clickedPreviously = false;
+        private Coroutine _deleteClickCo;
         private void Update()
         {
             if (!_canPickOption) return;
@@ -31,22 +35,45 @@ namespace Managers
             if (Input.GetKeyDown(KeyCode.Alpha2)) ClickButton(2);
             if (Input.GetKeyDown(KeyCode.Alpha3)) ClickButton(3);
             if (Input.GetKeyDown(KeyCode.Alpha4)) ClickButton(4);
+            if (Input.GetMouseButtonDown(0) && _skipNextFrame == false)
+            {
+                if (_clickedPreviously == false)
+                {
+                    _clickedPreviously = true;
+                    if (_deleteClickCo != null) StopCoroutine(_deleteClickCo);
+                    _deleteClickCo = StartCoroutine(DeletePreviousClick(0.2f));
+                }
+                else
+                {
+                    _skipNextFrame = true;
+                }
+            }
+        }
+        
+        private IEnumerator DeletePreviousClick(float time)
+        {
+            yield return new WaitForSeconds(time);
+            _clickedPreviously = false;
         }
 
         private NPCManager _latestNpcManager = null;
         public void StartConversation(NPCManager npcManager, int talkingStep)
         {
             CheckVariables();
+            _playerManager.SetCanMove(false);
             //List<string> options = new List<string>();
             //options.Add(_messagesManager.GetTextByID(1003));
             (int id, int npcTalk, Dictionary<int, int> answers) = npcManager.GetTalkStuff(talkingStep);
             if (id == -2)
             {
                 transform.gameObject.SetActive(false);
+                _playerManager.SetCanMove(true);
                 return;
             }
-            UpdateOptions(id, npcTalk, answers);
+            transform.gameObject.SetActive(true);
             _latestNpcManager = npcManager;
+            ClearCurrentOptions();
+            StartCoroutine(UpdateOptions(id, npcTalk, answers));
         }
         
         private void ClickButton(int option)
@@ -97,12 +124,24 @@ namespace Managers
             if (_playerManager == null) _playerManager = GameObject.Find("Player").GetComponent<PlayerManager>();
         }
 
-        private void UpdateOptions(int id, int npcTalk, Dictionary<int, int> answers)
+        private IEnumerator UpdateOptions(int id, int npcTalk, Dictionary<int, int> answers)
         {
-            transform.gameObject.SetActive(true);
-            ClearCurrentOptions();
             TMP_Text otherTMP = transform.Find("OtherSide").Find("TextPanel").Find("Text").GetComponent<TMP_Text>();
-            otherTMP.text = _messagesManager.GetTextByID(npcTalk);
+            string text = _messagesManager.GetTextByID(npcTalk);
+            for (int i = 0; i < text.Length; i++)
+            {
+                string newText = text.Substring(0,i) + "<color=#00000000>" + text.Substring(i);
+                otherTMP.text = newText;
+                // Maybe later add delay between words to look more real??? perhaps???
+                //if (text[i].Equals(' ')) yield return new WaitForSeconds(0.1f);
+                if (_skipNextFrame)
+                {
+                    _skipNextFrame = false;
+                    break;
+                }
+                yield return new WaitForSeconds(0.05f);
+            }
+            otherTMP.text = text;
             if (answers == null)
             {
                 answers = new Dictionary<int, int>();

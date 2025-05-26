@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Florest1Scene : MonoBehaviour
 {
-    
+
+    [SerializeField] private PlayerManager playerManager;
     [SerializeField] private OptionsCanvasManager optionsCanvasManager;
     
     public void HitNextSceneTrigger()

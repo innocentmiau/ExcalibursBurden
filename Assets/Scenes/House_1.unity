@@ -352,8 +352,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Managers.MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 1995989940}
+        m_TargetAssemblyTypeName: Managers.GlobalStuff, Assembly-CSharp
         m_MethodName: ClickCloseOptionsMenuButton
         m_Mode: 1
         m_Arguments:
@@ -492,8 +492,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Managers.MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 1995989940}
+        m_TargetAssemblyTypeName: Managers.GlobalStuff, Assembly-CSharp
         m_MethodName: UpdatedVolumeSlider
         m_Mode: 1
         m_Arguments:
@@ -1252,7 +1252,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &235148295
 RectTransform:
@@ -1598,8 +1598,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Managers.MainMenuManager, Assembly-CSharp
+      - m_Target: {fileID: 1995989940}
+        m_TargetAssemblyTypeName: Managers.GlobalStuff, Assembly-CSharp
         m_MethodName: UpdateLanguageUpdate
         m_Mode: 1
         m_Arguments:
@@ -6659,6 +6659,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995989938}
   - component: {fileID: 1995989939}
+  - component: {fileID: 1995989940}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -6695,6 +6696,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 894894867}
   playerManager: {fileID: 1161618127}
+--- !u!114 &1995989940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995989937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ebd4e1b337440219f6f189c1ee59320, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 1161618127}
+  canvasTransform: {fileID: 235148295}
+  languagesDropdown: {fileID: 255459913}
+  volumeSlider: {fileID: 70794782}
+  volumeTMP: {fileID: 78904880}
+  backgroundSource: {fileID: 0}
 --- !u!1 &1997402181
 GameObject:
   m_ObjectHideFlags: 0
